@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+__pycache__/
+
+# Build output
+dist/
+build/
+.next/
+out/
+target/
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Large files
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated
+*.min.js
+*.min.css
+*.map
+coverage/
+.nyc_output/
+
+# Media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.mp4
+*.webm
+*.woff
+*.woff2
+*.ttf
+*.eot

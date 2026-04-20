@@ -1,0 +1,13 @@
+{
+  "name": "rowdy-cloud",
+  "owner": {
+    "name": "Rowdy Cloud"
+  },
+  "plugins": [
+    {
+      "name": "ruckus",
+      "source": ".",
+      "description": "Gated development pipelines with subagent-per-task execution."
+    }
+  ]
+}

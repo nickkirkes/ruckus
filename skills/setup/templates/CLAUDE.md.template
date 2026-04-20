@@ -1,0 +1,33 @@
+# {{PROJECT_NAME}}
+
+{{DOMAIN_DESCRIPTION}}
+
+## Stack
+
+{{STACK_SUMMARY}}
+
+## Commands
+
+| Action | Command |
+|--------|---------|
+| Build | `{{BUILD_COMMAND}}` |
+| Type check | `{{TYPE_CHECK_COMMAND}}` |
+| Test | `{{TEST_COMMAND}}` |
+| Format | `{{FORMATTER_COMMAND}}` |
+
+## Conventions
+
+- {{CONVENTIONS}}
+
+## Architecture
+
+{{ARCHITECTURE_NOTES}}
+
+## Cross-Boundary Concerns
+
+{{CROSS_BOUNDARY_NOTES}}
+
+## Documentation
+
+- ADRs: {{ADR_LOCATION}}
+- Known pitfalls: docs/claude/known-pitfalls.md

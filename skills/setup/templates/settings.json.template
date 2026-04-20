@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "command": "{{FORMATTER_COMMAND}} $FILE_PATH"
+      }
+    ]
+  }
+}

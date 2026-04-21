@@ -1,0 +1,23 @@
+skills/build/implementer-prompt.md
+  eaa80a545805a165 5,14,16,21,26-28,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "63fb07492a190d5a04b01334304b7a98960abe2c",
+  "prompts": {
+    "eaa80a545805a165": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "28a46e3b-f6ce-4616-ab23-a9d2d4a8be58",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 22,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}

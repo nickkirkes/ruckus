@@ -98,14 +98,14 @@ Create `.claude/` directory if it doesn't exist.
 
 If a formatter was provided: read `skills/setup/templates/settings.json.template`, replace `{{FORMATTER_COMMAND}}` with the formatter command, and write to `.claude/settings.json`.
 
-If no formatter was provided: write a minimal `.claude/settings.json`:
+If no formatter was provided and `.claude/settings.json` does **not** already exist: write a minimal `.claude/settings.json`:
 ```json
 {
   "hooks": {}
 }
 ```
 
-This ensures the file always exists for upgrade to merge against and for users to extend with hooks later.
+If `.claude/settings.json` already exists, leave it unchanged — it may contain hooks from another plugin or a prior setup run.
 
 ### 5e. .workflow-upgrades
 Read the current plugin version from `.claude-plugin/plugin.json` (the `version` field).

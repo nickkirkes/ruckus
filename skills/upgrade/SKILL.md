@@ -91,7 +91,7 @@ For files classified as **New**:
 
 ## STEP 6: UPDATE VERSION
 
-If any files were updated or installed (not all skipped/unchanged), update the `ruckus-version` line in `docs/claude/.workflow-upgrades` to match the current plugin version:
+Update the `ruckus-version` line in `docs/claude/.workflow-upgrades` to match the current plugin version. Do this regardless of whether the user accepted or declined changes — the version tracks "last reviewed," not "last applied." File-content comparison in STEP 2 will still surface any unmerged diffs on future runs.
 ```
 ruckus-version [current version from plugin.json] [today's date]
 ```

@@ -58,13 +58,13 @@ Report format per finding:
 ```
 You are reviewing the pipeline logic of a Claude Code plugin that implements gated development workflows. Focus on the two main pipelines: build (skills/build/SKILL.md) and fix (skills/fix/SKILL.md).
 
-Read both pipeline skills completely. Also read verify-plan, review, and verify-all since the pipelines invoke them.
+Read both pipeline skills completely. Also read review-plan, review, and verify-all since the pipelines invoke them.
 
 **Gate Integrity:**
 - Is every stage followed by an explicit human gate?
 - Can any stage be skipped by the orchestrating agent? Look for ambiguous language that an LLM might interpret as permission to skip (e.g., "if appropriate" or "optionally").
-- Is verify-plan dispatched as a subagent (blocking) or invoked as a skill (skippable)? It MUST be a subagent dispatch.
-- Is implementation blocked until verify-plan completes? Look for the MANDATORY marker and Prerequisite callout.
+- Is review-plan dispatched as a subagent (blocking) or invoked as a skill (skippable)? It MUST be a subagent dispatch.
+- Is implementation blocked until review-plan completes? Look for the MANDATORY marker and Prerequisite callout.
 - After each implementation subagent returns, does two-stage review actually happen? Or could the orchestrator skip straight to the next task?
 
 **Subagent Dispatch Quality:**
@@ -201,7 +201,7 @@ Read README.md, all SKILL.md files (focus on user-facing text), and any CHANGELO
 - Can a new user understand what the plugin does in 30 seconds?
 - Is the installation instruction clear and complete?
 - Is the quick start path obvious (install → setup → first build)?
-- Are all 8 skills documented with when/why to use each?
+- Are all 9 skills documented with when/why to use each?
 - Are all 7 agents documented with what each does?
 - Is the maturity level system explained clearly?
 - Is the self-upgrading behavior documented?

@@ -238,8 +238,8 @@ When the human selects "abort" at any gate, respond based on how far the pipelin
 
 **Stages 5-7 (implementation started):** Offer rollback:
 > "Implementation is in progress. Options:
-> 1. `git stash` — stash all uncommitted changes (recoverable via `git stash pop`)
-> 2. `git checkout .` — discard all uncommitted changes (**irreversible — cannot be undone**)
+> 1. `git stash -u` — stash all uncommitted changes including new files (recoverable via `git stash pop`)
+> 2. `git checkout . && git clean -fd` — discard all uncommitted changes and remove new files (**irreversible — cannot be undone**)
 > 3. Keep changes as-is — leave working tree dirty for manual review"
 
 If the human selects option 2, require explicit re-confirmation: "This will permanently delete all uncommitted changes. Type 'discard' to confirm."

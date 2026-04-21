@@ -1,0 +1,27 @@
+skills/build/spec-reviewer-prompt.md
+  df945de3bd4113d4 1-2
+skills/setup/SKILL.md
+  df945de3bd4113d4 88,96-120,149,151
+skills/upgrade/SKILL.md
+  df945de3bd4113d4 16-22,81,92-103,115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "d3bf1172d7a31bb3a7926d69e47aab728f1abee7",
+  "prompts": {
+    "df945de3bd4113d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1274129f-93a9-467c-ab52-7e01950a65bf",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 58,
+      "total_deletions": 13,
+      "accepted_lines": 53,
+      "overriden_lines": 0
+    }
+  }
+}

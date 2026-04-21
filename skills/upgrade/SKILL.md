@@ -13,7 +13,13 @@ Compare installed Ruckus files against the latest plugin templates. Apply struct
 
 ## STEP 1: INVENTORY
 
-Enumerate all template files in the plugin's `skills/setup/templates/` directory dynamically. For each template, determine its installed counterpart:
+**Version check:** Read `docs/claude/.workflow-upgrades` and extract the `ruckus-version` line. Read `.claude-plugin/plugin.json` for the current plugin version. If they differ:
+> "Plugin version changed: [installed] → [current]. Structural diffs below may include changes from the version bump, not just your edits."
+
+If `.workflow-upgrades` is missing or has no version line, warn:
+> "No installed version recorded. Run `/ruckus:setup` to initialize, or proceeding will compare against current plugin templates."
+
+After displaying the version status, enumerate all template files in the plugin's `skills/setup/templates/` directory dynamically. For each template, determine its installed counterpart:
 
 **Known mappings:**
 | Template | Installs to |
@@ -72,6 +78,7 @@ Apply approved updates. For each applied update:
 1. Create a backup: `[file].backup-[date]`
 2. Merge structural changes with preserved customizations
 3. Verify the merged file is valid
+4. If the file is `docs/claude/CLAUDE.md`: also copy the merged result to the project root `CLAUDE.md` (required for Claude Code auto-loading and agent reads)
 
 ---
 
@@ -82,7 +89,18 @@ For files classified as **New**:
 
 ---
 
-## STEP 6: SUMMARY
+## STEP 6: UPDATE VERSION
+
+Update the `ruckus-version` line in `docs/claude/.workflow-upgrades` to match the current plugin version. Do this regardless of whether the user accepted or declined changes — the version tracks "last reviewed," not "last applied." File-content comparison in STEP 2 will still surface any unmerged diffs on future runs.
+```
+ruckus-version [current version from plugin.json] [today's date]
+```
+
+If the file doesn't exist, create it with the version line.
+
+---
+
+## STEP 7: SUMMARY
 
 ```
 # Upgrade Summary
@@ -94,5 +112,6 @@ For files classified as **New**:
 | [file] | New | Installed |
 | [file] | Unchanged | No action needed |
 
+**Plugin version:** [previous] → [current] (or "unchanged")
 **Backups created:** [list or "none"]
 ```

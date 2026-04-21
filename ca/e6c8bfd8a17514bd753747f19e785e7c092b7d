@@ -1,0 +1,25 @@
+skills/setup/SKILL.md
+  e6a62bed7c81a20f 53,55,57,59,61-62,64
+README.md
+  e6a62bed7c81a20f 7,11-12,15,21-41,43-79,85,90,101,106,114-160,164,166-170,177,187-234,245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "cae6c8bfd8a17514bd753747f19e785e7c092b7d",
+  "prompts": {
+    "e6a62bed7c81a20f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d83ff9b-c9df-46b9-8e4a-45499832b45a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 184,
+      "total_deletions": 41,
+      "accepted_lines": 177,
+      "overriden_lines": 0
+    }
+  }
+}

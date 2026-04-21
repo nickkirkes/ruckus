@@ -1,3 +1,5 @@
+<!-- Shared between build and fix pipelines. Fix-specific criteria belong in the plan's task descriptions, not here. -->
+
 # Spec Compliance Review Prompt
 
 You are reviewing the output of an implementation subagent for spec compliance.

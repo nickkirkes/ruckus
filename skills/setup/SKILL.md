@@ -85,7 +85,7 @@ Read `skills/setup/templates/CLAUDE.md.template`. Derive `{{PROJECT_NAME}}` from
 
 Write to `docs/claude/CLAUDE.md`.
 
-Also create a symlink or copy at project root `CLAUDE.md` pointing to `docs/claude/CLAUDE.md` if no root CLAUDE.md exists.
+Also create a **copy** (not a symlink) at the project root `CLAUDE.md` if no root CLAUDE.md exists. The root copy is required because Claude Code auto-loads it and all Ruckus agents reference it by name. Edits should happen to `docs/claude/CLAUDE.md` — the root copy is refreshed by `/ruckus:upgrade`.
 
 ### 5b. known-pitfalls.md
 Read `skills/setup/templates/known-pitfalls.md.template`. Replace `{{PROJECT_NAME}}` with the project name and `{{DOMAIN_DESCRIPTION}}` with the domain description from Step 3. Write to `docs/claude/known-pitfalls.md`.
@@ -93,8 +93,31 @@ Read `skills/setup/templates/known-pitfalls.md.template`. Replace `{{PROJECT_NAM
 ### 5c. .claudeignore
 Read `skills/setup/templates/claudeignore.template`. Write to `.claudeignore` (project root).
 
-### 5d. settings.json (if formatter detected)
-If a formatter was provided, read `skills/setup/templates/settings.json.template`. Replace `{{FORMATTER_COMMAND}}` with the formatter command. Write to `.claude/settings.json`.
+### 5d. settings.json
+Create `.claude/` directory if it doesn't exist.
+
+If a formatter was provided: read `skills/setup/templates/settings.json.template`, replace `{{FORMATTER_COMMAND}}` with the formatter command, and write to `.claude/settings.json`.
+
+If no formatter was provided: write a minimal `.claude/settings.json`:
+```json
+{
+  "hooks": {}
+}
+```
+
+This ensures the file always exists for upgrade to merge against and for users to extend with hooks later.
+
+### 5e. .workflow-upgrades
+Read the current plugin version from `.claude-plugin/plugin.json` (the `version` field).
+
+If `docs/claude/.workflow-upgrades` does **not** exist: create it with the version line:
+```
+ruckus-version [version from plugin.json] [today's date YYYY-MM-DD]
+```
+
+If the file **already exists** (re-run / enrich mode): update or insert the `ruckus-version` line at the top, preserving all other entries (maturity check decisions from prior build/fix runs).
+
+This file tracks plugin version (for upgrade detection) and maturity check decisions (recorded by build/fix pipelines at wrap-up).
 
 ---
 
@@ -123,8 +146,9 @@ Display what was created:
 **Created:**
 - docs/claude/CLAUDE.md — project context for all skills
 - docs/claude/known-pitfalls.md — grows as you work
+- docs/claude/.workflow-upgrades — tracks plugin version and maturity decisions
 - .claudeignore — keeps context lean
-- .claude/settings.json — [formatter hook / not created]
+- .claude/settings.json — [formatter hook configured / empty hooks structure]
 
 **Next steps:**
 - Run `/ruckus:build` for your first feature

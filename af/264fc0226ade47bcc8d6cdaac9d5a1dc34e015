@@ -1,0 +1,27 @@
+skills/fix/SKILL.md
+  df945de3bd4113d4 242
+specs/review-ruckus-plugin-prompt.md
+  df945de3bd4113d4 213,222
+skills/build/SKILL.md
+  df945de3bd4113d4 241
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "af264fc0226ade47bcc8d6cdaac9d5a1dc34e015",
+  "prompts": {
+    "df945de3bd4113d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1274129f-93a9-467c-ab52-7e01950a65bf",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 4,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}

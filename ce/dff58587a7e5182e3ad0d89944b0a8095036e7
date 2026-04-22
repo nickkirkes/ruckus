@@ -1,0 +1,25 @@
+README.md
+  eaa80a545805a165 96,109,211
+CHANGELOG.md
+  eaa80a545805a165 3-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "cedff58587a7e5182e3ad0d89944b0a8095036e7",
+  "prompts": {
+    "eaa80a545805a165": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "28a46e3b-f6ce-4616-ab23-a9d2d4a8be58",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 1,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}

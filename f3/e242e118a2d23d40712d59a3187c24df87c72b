@@ -1,0 +1,14 @@
+.gitignore
+  h_5c32ae20a746c8 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "f3e242e118a2d23d40712d59a3187c24df87c72b",
+  "prompts": {},
+  "humans": {
+    "h_5c32ae20a746c8": {
+      "author": "Nick Kirkes"
+    }
+  }
+}

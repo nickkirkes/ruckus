@@ -1,0 +1,31 @@
+skills/setup/templates/known-pitfalls.md.template
+  fe7cfc7e76271fb2 14-19,24-29,34-38
+skills/setup/templates/claudeignore.template
+  fe7cfc7e76271fb2 1,10,23-48
+skills/build/SKILL.md
+  fe7cfc7e76271fb2 79
+specs/ruckus-build-skill.md
+  fe7cfc7e76271fb2 79
+skills/fix/SKILL.md
+  fe7cfc7e76271fb2 90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "8b3d31d2fece845835e9ae24ed501c5e116ad2c0",
+  "prompts": {
+    "fe7cfc7e76271fb2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "34198365-637d-42e5-9b2f-bd452b3c602c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 49,
+      "total_deletions": 29,
+      "accepted_lines": 49,
+      "overriden_lines": 0
+    }
+  }
+}

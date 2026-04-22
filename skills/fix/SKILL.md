@@ -252,7 +252,7 @@ Continue with whatever the human provides — not a hard block, but a visible ga
 **Check: investigator-v1:**
 If no `investigator-v1-added` in `docs/claude/.workflow-upgrades` AND source file count > 50 AND not declined:
 > "This project has [N] source files but the investigator agent isn't enabled. It improves bug diagnosis for `/ruckus:fix`. Enable it? (yes / not yet / never)"
-If yes: record `investigator-v1-added YYYY-MM-DD` in `.workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
+If yes: record `investigator-v1-added YYYY-MM-DD` in `docs/claude/.workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 **Check: pitfalls-organized-v1:**
 If `docs/claude/known-pitfalls.md` > 80 lines AND no `pitfalls-organized-v1` within last 30 days:

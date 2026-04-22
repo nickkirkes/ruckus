@@ -1,0 +1,25 @@
+skills/fix/SKILL.md
+  e03fbaae0fe3eb75 105,112-114
+skills/build/SKILL.md
+  e03fbaae0fe3eb75 96,105-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "952578ceee5f868e3f90ac98c15755c8ff1ac78d",
+  "prompts": {
+    "e03fbaae0fe3eb75": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ff251435-35ad-4cf6-9fda-e29f6d67dcb8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 4,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}

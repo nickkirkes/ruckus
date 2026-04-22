@@ -1,0 +1,25 @@
+skills/build/spec-reviewer-prompt.md
+  e03fbaae0fe3eb75 1-4
+skills/build/implementer-prompt.md
+  e03fbaae0fe3eb75 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "67ebdeb5074084d37b7b9b50c19d6be0add71174",
+  "prompts": {
+    "e03fbaae0fe3eb75": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ff251435-35ad-4cf6-9fda-e29f6d67dcb8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 1,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}

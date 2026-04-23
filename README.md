@@ -1,6 +1,6 @@
 # Ruckus
 
-Gated development pipelines with subagent-per-task execution. Ruckus is a Claude Code plugin by Rowdy Cloud that makes agents prove their work at every stage — no quiet failures, no skipped steps, no hoping things work. Discover, plan, verify, implement, review, ship.
+Gated development pipelines with subagent-per-task execution. Ruckus is a Claude Code plugin that leverages iterative, subagent-driven development. Discover, plan, verify, implement, review, ship.
 
 ## Installation
 
@@ -311,4 +311,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide: fork/test workflow, w
 
 ## License
 
-MIT - Rowdy Cloud
+MIT - Nick Kirkes

@@ -3,7 +3,7 @@
 ## Getting Started
 
 1. Fork and clone the repo
-2. Test locally: `claude --plugin-dir ./` in a scratch project
+2. Test locally from a scratch project: `claude --plugin-dir /path/to/your/ruckus-clone`
 3. Run `/ruckus:setup` in the scratch project to verify the bootstrap flow
 4. Try `/ruckus:build` on a small feature to see the full pipeline
 
@@ -48,7 +48,7 @@ All conventions are documented in [CLAUDE.md](CLAUDE.md). The key ones:
 
 There is no automated test suite — this is pure markdown. To verify changes:
 
-1. Run `claude --plugin-dir ./` in a test project
+1. Run `claude --plugin-dir /path/to/your/ruckus-clone` in a test project
 2. Exercise the skill you changed (e.g., `/ruckus:build` for build changes)
 3. Check that frontmatter is valid YAML
 4. Check that cross-references (agent names in skills, file paths) are accurate

@@ -25,7 +25,7 @@ This is a plugin, not a standalone app. It runs inside Claude Code sessions in t
 
 There is no build step — this is pure markdown.
 
-**Test locally:** `claude --plugin-dir ./` in a test project.
+**Test locally:** `claude --plugin-dir /path/to/your/ruckus-clone` from a test project.
 
 **Verify structure:** Check frontmatter fields, cross-references between skills and agents, file counts, line/word limits.
 

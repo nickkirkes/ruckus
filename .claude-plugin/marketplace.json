@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "ruckus",
-      "source": ".",
+      "source": "./",
       "description": "Gated development pipelines with subagent-per-task execution."
     }
   ]

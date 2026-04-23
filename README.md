@@ -5,10 +5,11 @@ Ruckus is a Claude Code plugin for gated, subagent-per-task development pipeline
 ## Installation
 
 ```sh
+/plugin marketplace add nickkirkes/ruckus
 /plugin install ruckus@nickkirkes
 ```
 
-The install format is `plugin-name@publisher` — `nickkirkes` is the marketplace publisher. If install fails: check that Claude Code is v1.0+ (`claude --version`), verify internet access, and try `/plugin list` to confirm marketplace connectivity. As a fallback, clone the repo manually into `~/.claude/plugins/ruckus/`.
+First add the marketplace from GitHub, then install the plugin. If install fails: check that Claude Code is v1.0+ (`claude --version`), verify internet access, and try `/plugin list` to confirm connectivity. As a fallback, clone the repo manually into `~/.claude/plugins/ruckus/`.
 
 ## Quick Start
 
@@ -33,6 +34,7 @@ Setup detects your project's maturity level (greenfield/scaffolded/established b
 
 ```sh
 # 1. Install and set up
+/plugin marketplace add nickkirkes/ruckus
 /plugin install ruckus@nickkirkes
 /ruckus:setup                          # answer 6 questions about your project
 

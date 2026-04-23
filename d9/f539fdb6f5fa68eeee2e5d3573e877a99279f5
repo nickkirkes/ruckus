@@ -1,0 +1,36 @@
+marketplace.json
+  122bf266fb300246 2,4
+LICENSE
+  122bf266fb300246 3
+.claude-plugin/plugin.json
+  122bf266fb300246 3
+README.md
+  122bf266fb300246 8,11,36
+CLAUDE.md
+  122bf266fb300246 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "d9f539fdb6f5fa68eeee2e5d3573e877a99279f5",
+  "prompts": {
+    "122bf266fb300246": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bf551715-317c-40ae-9250-4552c05ef01d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 8,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_5c32ae20a746c8": {
+      "author": "Nick Kirkes"
+    }
+  }
+}

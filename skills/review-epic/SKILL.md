@@ -1,6 +1,7 @@
 ---
 name: review-epic
 description: "Pre-implementation epic review. Dispatches epic-reviewer agent (Opus) to check technical accuracy, best practices, risks, and overengineering. Run before starting implementation of an epic."
+disable-model-invocation: true
 ---
 
 # Epic Review

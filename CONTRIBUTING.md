@@ -1,0 +1,59 @@
+# Contributing to Ruckus
+
+## Getting Started
+
+1. Fork and clone the repo
+2. Test locally: `claude --plugin-dir ./` in a scratch project
+3. Run `/ruckus:setup` in the scratch project to verify the bootstrap flow
+4. Try `/ruckus:build` on a small feature to see the full pipeline
+
+## What to Contribute
+
+Improvements to Ruckus — built with Ruckus. Use `/ruckus:build` to implement your changes.
+
+- Bug reports with reproduction steps (include Claude Code version)
+- Documentation improvements (README, ADRs, CLAUDE.md)
+- New agent definitions
+- Template improvements (setup templates, ignore patterns)
+- Maturity check additions (with versioned IDs)
+
+## What NOT to Contribute Without Discussion
+
+These are covered by ADRs and require an ADR amendment before changing:
+
+- Pipeline stage structure — number, order, or gating behavior (ADR-001, ADR-002)
+- Subagent dispatch model — how tasks are scoped and coordinated (ADR-002)
+- Adding new pipeline commands — build and fix are intentionally the only two (ADR-004)
+- Removing `disable-model-invocation: true` from coordinator skills (see CLAUDE.md)
+
+Open an issue to discuss before submitting a PR for these areas.
+
+## PR Process
+
+1. Fork → branch → PR against `main`
+2. Include an updated CHANGELOG entry under `[Unreleased]`
+3. If the change involves a design decision, draft an ADR (see `docs/adrs/README.md`)
+4. Ensure skills stay under 300 lines and agents under 500 words
+
+## Code Standards
+
+All conventions are documented in [CLAUDE.md](CLAUDE.md). The key ones:
+
+- Skills: YAML frontmatter with `name`, `description`; pipeline/coordinator skills need `disable-model-invocation: true`
+- Agents: YAML frontmatter with `name`, `description`, `tools`, `model`
+- Templates: use `{{PLACEHOLDER}}` markers — never hardcode project-specific values
+- Maturity check IDs must be versioned (e.g., `investigator-v1`)
+
+## Testing
+
+There is no automated test suite — this is pure markdown. To verify changes:
+
+1. Run `claude --plugin-dir ./` in a test project
+2. Exercise the skill you changed (e.g., `/ruckus:build` for build changes)
+3. Check that frontmatter is valid YAML
+4. Check that cross-references (agent names in skills, file paths) are accurate
+5. Verify line/word limits: skills < 300 lines, agents < 500 words
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.

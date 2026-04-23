@@ -29,6 +29,28 @@ Setup detects your project's maturity level (greenfield/scaffolded/established b
 | `.claude/settings.json` | Claude Code hooks (e.g., auto-format on save) |
 | `CLAUDE.md` *(root copy)* | Auto-loaded by Claude Code — edit `docs/claude/CLAUDE.md` instead |
 
+### Your first feature
+
+```sh
+# 1. Install and set up
+/plugin install ruckus@rowdy-cloud
+/ruckus:setup                          # answer 6 questions about your project
+
+# 2. Write a small spec (one file, a few lines)
+cat > docs/epics/add-health-endpoint.md << 'EOF'
+# Add Health Endpoint
+## Story 1: GET /health
+**AC:**
+- Returns 200 with `{ "status": "ok" }` when the server is running
+- Returns service version from package.json
+EOF
+
+# 3. Build it
+/ruckus:build docs/epics/add-health-endpoint.md
+```
+
+Ruckus walks you through 8 gates: confirm scope → review discovery → approve plan → approve verified plan → approve implementation → approve review → approve verification → approve commit. At each gate you see what happened and choose yes / adjust / abort.
+
 ## How It Works
 
 Ruckus uses **subagents** — separate Claude processes dispatched for isolated tasks. The skill driving the pipeline is the **orchestrator**; it coordinates but doesn't implement. This separation keeps each agent's context clean and focused.
@@ -273,7 +295,10 @@ ruckus/
 │   ├── review-plan/    (plan verification)
 │   ├── upgrade/        (update installed files)
 │   └── setup/          (bootstrap + templates)
-├── agents/             (7 agent definitions)
+├── agents/             (7 agents + agent-preamble.md)
+├── docs/adrs/          (8 Architecture Decision Records)
+├── CLAUDE.md
+├── CONTRIBUTING.md
 ├── README.md
 ├── CHANGELOG.md
 ├── LICENSE
@@ -282,11 +307,7 @@ ruckus/
 
 ## Contributing
 
-1. Fork the repo
-2. Create a feature branch
-3. Make your changes (follow the gated pipeline — use `/ruckus:build` on itself)
-4. Ensure all skills are under 300 lines and all agents under 500 words
-5. Submit a PR
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide: fork/test workflow, what to contribute, PR process, and code standards.
 
 ## License
 

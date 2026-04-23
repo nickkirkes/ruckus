@@ -1,6 +1,7 @@
 ---
 name: verify-all
 description: "Build verification loop: type check, test suite, and build command. Iterates until clean or escalates. Uses project-specific commands from CLAUDE.md."
+disable-model-invocation: true
 ---
 
 # Verify All

@@ -14,7 +14,7 @@ This was raised as a critical finding during the plugin review and resolved thro
 
 ## Decision
 
-A single `spec-reviewer-prompt.md` is shared between build and fix pipelines. Fix-specific criteria belong in the plan's task descriptions, not in the review prompt.
+A single `spec-reviewer-prompt.md` serves as the canonical source for the spec compliance checklist, which is inlined into both build and fix pipelines (neither loads the file at runtime). Fix-specific criteria belong in the plan's task descriptions, not in the review prompt.
 
 ## Reasoning
 

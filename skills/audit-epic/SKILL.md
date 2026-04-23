@@ -1,6 +1,7 @@
 ---
 name: audit-epic
 description: "Post-implementation epic audit. Parses stories, maps to files via git history, dispatches per-story review subagents, cross-cutting review, and AC verification. Does not modify source code — only writes the audit report."
+disable-model-invocation: true
 ---
 
 # Epic Audit

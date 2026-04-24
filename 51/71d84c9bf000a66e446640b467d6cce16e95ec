@@ -1,0 +1,23 @@
+.claude-plugin/plugin.json
+  980941be708c904d 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "5171d84c9bf000a66e446640b467d6cce16e95ec",
+  "prompts": {
+    "980941be708c904d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "28898944-b8af-47f6-9c66-0e9c03e132d2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

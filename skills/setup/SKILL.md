@@ -28,13 +28,16 @@ Also detect:
 - Test framework (jest, vitest, pytest, go test, etc.)
 - Formatter (prettier, black, gofmt, etc.)
 - CI configuration (.github/workflows, .gitlab-ci, etc.)
-- Existing .claude/ or .ruckus/ directory
+- Existing .claude/, .ruckus/, or docs/claude/ directory
 
 Display: "Project maturity: [level] ([N] source files). Detected: [test framework], [formatter], [CI]."
 
 ---
 
 ## STEP 2: CHECK EXISTING STATE
+
+If `docs/claude/` exists:
+> "Legacy Ruckus installation detected at `docs/claude/`. Run `/ruckus:upgrade` to migrate to `.ruckus/` first, then re-run `/ruckus:setup` if needed. (proceed anyway / abort)"
 
 If `.ruckus/` or `.claude/` already exists:
 > "Existing Ruckus/Claude configuration detected. Options: (enrich) add missing fields / (replace) fresh setup / (abort)"

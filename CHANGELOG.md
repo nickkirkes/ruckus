@@ -2,12 +2,42 @@
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** Rename `docs/claude/` to `.ruckus/` for unambiguous plugin ownership (E01.S1)
+  - `docs/claude/known-pitfalls.md` → `.ruckus/known-pitfalls.md`
+  - `docs/claude/.workflow-upgrades` → `.ruckus/workflow-upgrades` (dropped leading dot)
+- Eliminate secondary `docs/claude/CLAUDE.md` — root `CLAUDE.md` is now the sole copy (E01.S1)
+- Setup writes `CLAUDE.md` directly to project root instead of `docs/claude/CLAUDE.md` + root copy (E01.S1)
+- Doc-writer agent writes to root `CLAUDE.md` and `.ruckus/known-pitfalls.md` (E01.S1)
+- Update all agent preambles and skill references to use `.ruckus/` paths (E01.S1)
+- ADR-005 and ADR-006 updated with footnotes noting the directory rename (E01.S1)
+
+### Added
+
+- Upgrade migration step: detects `docs/claude/` in existing projects and offers to move files to `.ruckus/` (E01.S1)
+- `.ruckus/` row added to CLAUDE.md structure table (E01.S1)
+
+## [0.1.1] — 2026-04-24
+
+### Fixed
+
+- Prevent plan mode hijack in build/fix pipelines — Claude Code's built-in plan mode was intercepting Stage 3→4 flow and skipping review-plan entirely (#8)
+- Move marketplace.json to `.claude-plugin/` where Claude Code expects it — root placement caused "Marketplace file not found" errors
+- Use `./` source path in marketplace.json for schema validation
+
+### Changed
+
 - Tighten README opener and Quick Start bridging text
 - Rename "Self-Upgrading" section to "Upgrade Checks"
 - Trim redundant build pipeline bullets (covered in How It Works)
-- Add "Built with Ruckus" invitation section
-- Add issue-first step to CONTRIBUTING PR process
-- Add CODE_OF_CONDUCT.md (Contributor Covenant v2.1)
+- Modify install instructions in README
+
+### Added
+
+- "Built with Ruckus" invitation section in README
+- Issue-first step to CONTRIBUTING PR process
+- CODE_OF_CONDUCT.md (Contributor Covenant v2.1)
 
 ## [0.1.0] — 2026-04-22
 

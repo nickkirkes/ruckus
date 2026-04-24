@@ -1,0 +1,61 @@
+agents/investigator.md
+  21f7900a22bb7897 22
+agents/discovery.md
+  21f7900a22bb7897 22
+skills/upgrade/SKILL.md
+  21f7900a22bb7897 16-20,23,31-32,36,97
+skills/build/SKILL.md
+  21f7900a22bb7897 142,226,232,249,251,254
+agents/silent-failure-hunter.md
+  21f7900a22bb7897 18
+docs/plans/e01-s1-directory-rename-plan.md
+  21f7900a22bb7897 1-195
+skills/review/SKILL.md
+  21f7900a22bb7897 28,38,71
+README.md
+  21f7900a22bb7897 26-28,69,223,266
+docs/adrs/ADR-005-versioned-maturity-checks.md
+  21f7900a22bb7897 17,51-52
+agents/code-reviewer.md
+  21f7900a22bb7897 18
+docs/adrs/ADR-006-runtime-context-not-baked.md
+  21f7900a22bb7897 17,21,46-47
+skills/setup/SKILL.md
+  21f7900a22bb7897 31,39,81,93,95,98,117,120,143,155-157
+agents/agent-preamble.md
+  21f7900a22bb7897 14
+skills/setup/templates/CLAUDE.md.template
+  21f7900a22bb7897 33
+agents/epic-reviewer.md
+  21f7900a22bb7897 18
+skills/review-epic/SKILL.md
+  21f7900a22bb7897 34
+skills/fix/SKILL.md
+  21f7900a22bb7897 40,151,231,237,254,256,259
+skills/build/implementer-prompt.md
+  21f7900a22bb7897 20
+agents/doc-writer.md
+  21f7900a22bb7897 22-23
+CLAUDE.md
+  21f7900a22bb7897 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "bf24d29c91f7dd4e32137f358b291c7c6c45dd67",
+  "prompts": {
+    "21f7900a22bb7897": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c3783622-5874-42a9-9e38-0a6e350630d6",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 263,
+      "total_deletions": 61,
+      "accepted_lines": 258,
+      "overriden_lines": 0
+    }
+  }
+}

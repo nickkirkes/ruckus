@@ -1,0 +1,29 @@
+skills/fix/SKILL.md
+  83e102af21ef0f70 183-184,188
+skills/review-plan/SKILL.md
+  83e102af21ef0f70 17,19,89
+docs/plans/E01-S4-error-handling-disambiguation-plan.md
+  83e102af21ef0f70 1-102
+skills/build/SKILL.md
+  83e102af21ef0f70 174-175,179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "5f05c3e359507c5822c5ad4d7b102435e0f6dbda",
+  "prompts": {
+    "83e102af21ef0f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a75121c0-11c8-4485-9ea5-901043175384",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 113,
+      "total_deletions": 9,
+      "accepted_lines": 111,
+      "overriden_lines": 0
+    }
+  }
+}

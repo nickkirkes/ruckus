@@ -1,0 +1,31 @@
+docs/claude/.workflow-upgrades
+  402585671048024e 1
+.claudeignore
+  402585671048024e 1-22
+docs/claude/CLAUDE.md
+  402585671048024e 1-32
+docs/claude/known-pitfalls.md
+  402585671048024e 1-28
+.claude/settings.json
+  402585671048024e 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "e9287b34eac8f284fdb68e0002e8edec6254a501",
+  "prompts": {
+    "402585671048024e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "72819784-3a2a-4329-9594-74340e81f6d4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 86,
+      "total_deletions": 0,
+      "accepted_lines": 86,
+      "overriden_lines": 0
+    }
+  }
+}

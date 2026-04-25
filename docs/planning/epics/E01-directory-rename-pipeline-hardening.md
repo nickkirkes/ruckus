@@ -126,8 +126,9 @@ References `CLAUDE.md` (root) and `.ruckus/known-pitfalls.md` as write targets.
 
 ---
 
-### S2: Pipeline loop caps
+### S2: Pipeline loop caps ✅
 
+**Status:** Merged (2026-04-25)
 **Priority:** P1
 
 **Files:**
@@ -197,10 +198,10 @@ Target behavior:
 **Line budget:** S1 is net-zero lines in build/fix (inline path replacements only). Changes 1 and 4 are inline rewording (0 net lines). Change 2 must use terse wording (0 net lines). Change 3 adds 1 line. Net: **+1 line per file.** Post-S1+S2: build 289→290, fix 294→295.
 
 **Acceptance Criteria:**
-- [ ] Stage 4 says "2 total" not "2 consecutive" in both build and fix
-- [ ] Stage 5c has explicit 2-attempt cap with human escalation in both build and fix
-- [ ] Stage 6 review-fix loop has 2-cycle cap with human escalation in both build and fix
-- [ ] Stage 6 gate option is unambiguous — specifies what "address warnings" does and limits it
+- [x] Stage 4 says "2 total" not "2 consecutive" in both build and fix
+- [x] Stage 5c has explicit 2-attempt cap with human escalation in both build and fix
+- [x] Stage 6 review-fix loop has 2-cycle cap with human escalation in both build and fix
+- [x] Stage 6 gate option is unambiguous — specifies what "address warnings" does and limits it
 
 ---
 

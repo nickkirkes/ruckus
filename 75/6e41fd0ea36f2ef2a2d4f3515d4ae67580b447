@@ -1,0 +1,25 @@
+skills/build/SKILL.md
+  6a32eda5bdb60e01 116-117,186,212-213
+skills/fix/SKILL.md
+  6a32eda5bdb60e01 125-126,193,217-218
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "756e41fd0ea36f2ef2a2d4f3515d4ae67580b447",
+  "prompts": {
+    "6a32eda5bdb60e01": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebaacd19-968b-47fd-b7bd-32aca60c244f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 5,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    }
+  }
+}

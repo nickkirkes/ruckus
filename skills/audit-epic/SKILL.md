@@ -53,7 +53,15 @@ Display the mapping for human confirmation.
 
 ## STEP 3: PER-STORY REVIEW
 
-Dispatch review subagents in parallel (one per story, model: `sonnet`). Each receives:
+**If fewer than 10 stories:** Dispatch review subagents in parallel (one per story, model: `sonnet`). Each receives the prompt below.
+
+**If 10 or more stories:** Batch per-story reviews in groups of 5:
+1. Dispatch the first batch (up to 5 stories) in parallel, model: `sonnet`. Each receives the prompt below.
+2. When the batch returns, summarize batch findings: key themes, critical issues (PARTIALLY MET / NOT MET items), affected story IDs.
+3. Compact context. Preserve: epic title, full story ID list, all accumulated AC status rows (verdict per AC per story — no evidence), all batch summaries so far (append, do not replace), remaining story list.
+4. If remaining story list is empty, proceed to the convergence point below. Otherwise, dispatch the next batch and repeat from step 2.
+
+Each subagent receives:
 
 **Per-story subagent prompt:**
 ```
@@ -84,13 +92,15 @@ Acceptance Criteria:
 **Missing coverage:** [gaps found]
 ```
 
-Compact context after all per-story subagents return. Preserve: epic title, story ID list, per-story AC status table (MET/PARTIALLY MET/NOT MET per AC), quality flags and missing coverage notes. Full evidence citations and file:line references from subagent reports are NOT needed for cross-cutting analysis — the status verdicts carry the signal.
+**Both paths converge here.** After all stories are reviewed:
+
+Compact context. Preserve: epic title, story ID list, per-story AC status table (MET/PARTIALLY MET/NOT MET per AC — verdict only, no evidence), quality flags, missing coverage notes. For batched epics, also preserve the accumulated batch summaries (themes and critical issues per batch). Full evidence citations and file:line references are NOT needed — status verdicts and batch summaries carry the signal.
 
 ---
 
 ## STEP 4: CROSS-CUTTING REVIEW
 
-After all per-story reviews return, perform a cross-cutting analysis:
+After all per-story reviews complete (and context is compacted), perform a cross-cutting analysis using the AC status table and any batch summaries:
 
 1. **Consistency** — Do stories that share files implement patterns consistently?
 2. **Integration** — Do stories that depend on each other integrate correctly?

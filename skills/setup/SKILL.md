@@ -42,7 +42,7 @@ If `docs/claude/` exists:
 Else if `.ruckus/` or `.claude/` already exists:
 > "Existing Ruckus/Claude configuration detected. Options: (enrich) add missing fields / (replace) fresh setup / (abort)"
 
-If enriching, read existing files and identify gaps: any of the 6 required fields (Step 3) that are missing, empty, or contain placeholder text ("TBD", "TODO", template markers like `{{...}}`). Exception: "none" is a valid answer for the type-check and test-command fields only — do not treat it as a gap for those two fields. Only prompt for gap fields — preserve all existing non-gap content.
+If enriching, read existing files and identify gaps: any of the 6 required fields (Step 3) that are missing, empty, or contain placeholder text ("TBD", "TODO", template markers like `{{...}}`). Exception: for the type-check and test-command fields only, answers like "none", "none yet", or other deliberate opt-outs are valid — do not treat them as gaps. Only prompt for gap fields — preserve all existing non-gap content.
 
 ---
 

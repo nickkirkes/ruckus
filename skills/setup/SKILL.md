@@ -66,7 +66,7 @@ Ask each question. If the human provides "skip" or refuses, explain why it matte
 6. **Domain:** "In one sentence, what does this project do?"
    *e.g., "Cannabis compliance platform for tracking inventory from seed to sale" or "Real-time multiplayer game server"*
 
-**Gate:** Confirm all 6 required fields have non-empty, non-placeholder values. If any field is missing or contains only "TBD", "TODO", "skip", or similar placeholders, loop back to that specific question. Do not proceed to Step 4 until all 6 fields have substantive answers.
+**Gate:** Confirm all 6 required fields have non-empty, non-placeholder values. If any field is missing or contains only "TBD", "TODO", "skip", or similar placeholders, loop back to that specific question. Exception: for type-check and test-command, answers like "none" or "none yet" are valid opt-outs — accept them. Do not proceed to Step 4 until all 6 fields have substantive answers.
 
 ---
 

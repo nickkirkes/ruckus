@@ -1,10 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## [0.1.3] — 2026-04-28
 
 ### Fixed
 
 - Upgrade skill no longer offers to install plugin-shipped agents into user projects — agents ship with the plugin and are loaded via `subagent_type`, never copied (E01 audit follow-up)
+
+### Changed
+
+- Setup domain example: replace cannabis-specific example with general-audience e-commerce example
 
 ### Added
 

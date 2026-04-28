@@ -118,7 +118,7 @@ E01 is substantively complete. All 8 stories have been implemented and merged to
 
 2. **Integration — dependency ordering was respected.** S1 (path rename) was implemented first. S5 and S7, which depend on renamed paths, correctly reference `.ruckus/`. The upgrade migration step (S1) and the setup legacy-detection (S7) work together — setup detects `docs/claude/` and directs users to `/ruckus:upgrade`.
 
-3. **No gaps found.** Every AC across all 8 stories has an implementing commit. The two PARTIAL items are cosmetic, not functional.
+3. **No gaps found.** Every AC across all 8 stories has an implementing commit. The three PARTIAL items are cosmetic, not functional.
 
 4. **No regressions detected.** S2-S4's pipeline changes are additive caps and disambiguation — no existing behavior paths were removed. S7's setup gate only triggers on missing/placeholder values, leaving normal flow intact.
 

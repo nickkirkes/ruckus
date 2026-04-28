@@ -130,7 +130,7 @@ Intake → Discover → Plan → Review Plan → Implement → Review → Verify
 
 - UI work detected per-task via `UI: yes/no` flag (loads frontend-design automatically)
 - Human gates at every stage transition
-- Context compacted after Stages 4, 5, 6 to prevent overflow on longer builds
+- Context compacted before Stages 5, 6, 7, 8 to prevent overflow on longer builds
 
 ## Pipeline: `/ruckus:fix`
 
@@ -143,7 +143,7 @@ Intake → Investigate → Plan → Review Plan → Implement → Review → Ver
 **Key differences from build:**
 
 - Stage 2 dispatches the investigator agent (or performs inline if agent doesn't exist)
-- Compacts context before investigation and after Stages 4, 5, 6
+- Compacts context before investigation and before Stages 5, 6, 7, 8
 - Commit messages use `fix:` prefix with issue ID reference
 - Offers to create investigator agent when project reaches 50+ files
 
@@ -231,8 +231,8 @@ Approximate token consumption per skill invocation. Actual usage varies with pro
 | Skill | Approximate Tokens | Notes |
 | ----- | ------------------ | ----- |
 | `setup` | 5K-10K | One-time; mostly human Q&A |
-| `build` | 40K-80K | Scales with task count (~8-12K per task). Includes 3 compaction points that reduce peak context. |
-| `fix` | 30K-60K | Usually fewer tasks than build. Includes 3 compaction points that reduce peak context. |
+| `build` | 40K-80K | Scales with task count (~8-12K per task). Includes 4 compaction points that reduce peak context. |
+| `fix` | 30K-60K | Usually fewer tasks than build. Includes 5 compaction points that reduce peak context. |
 | `review` | 15K-25K | 3 parallel agents reading changed files |
 | `review-epic` | 10K-20K | Single Opus dispatch; scales with epic size |
 | `audit-epic` | 20K-50K | Per-story subagents + synthesis |
@@ -247,7 +247,7 @@ Approximate token consumption per skill invocation. Actual usage varies with pro
 **Symptom:** Agent loses track of earlier tasks or gives confused output late in a build.
 **Cause:** Too many tasks in the plan for a single context window.
 **Fix:** Break large features into smaller builds (5-7 tasks max per run). If mid-run, abort and split remaining tasks into a second `/ruckus:build`.
-Ruckus automatically compacts context after Stages 4, 5, and 6 to reduce overflow risk, but very large plans (10+ tasks) may still hit limits.
+Ruckus automatically compacts context before Stages 5, 6, 7, and 8 to reduce overflow risk, but very large plans (10+ tasks) may still hit limits.
 
 ### Subagent returns empty or fails
 

@@ -2,19 +2,20 @@
 
 **Date:** 2026-04-28
 **Stories audited:** 8
-**Acceptance criteria:** 45 — 43 MET, 2 PARTIAL, 0 NOT MET
+**Acceptance criteria:** 45 — 42 MET, 3 PARTIAL, 0 NOT MET
 
 ## Summary
 
-E01 is substantively complete. All 8 stories have been implemented and merged to main. 43 of 45 acceptance criteria are fully met. The 2 PARTIALLY MET items are both cosmetic — one is a false positive from intentional legacy-path references in migration code (S1 AC1/AC2), the other is a minor formatting variance in an inline definition (S8 AC6). No behavioral gaps, regressions, or unmet functional requirements were found. The epic's exit criteria are met: plugin.json is at v0.1.2, tag v0.1.2 is pushed, CHANGELOG is comprehensive, line budgets are within limits (build: 294, fix: 299), and cross-references are valid.
+E01 is substantively complete. All 8 stories have been implemented and merged to main. 42 of 45 acceptance criteria are fully met. The 3 PARTIALLY MET items are all cosmetic — two are false positives from intentional legacy-path references in migration code (S1 AC1 and AC2), the other is a minor formatting variance in an inline definition (S8 AC6). No behavioral gaps, regressions, or unmet functional requirements were found. The epic's exit criteria are met: plugin.json is at v0.1.2, tag v0.1.2 is pushed, CHANGELOG is comprehensive, line budgets are within limits (build: 294, fix: 299), and cross-references are valid.
 
 ## Per-Story Results
 
-### S1: Rename `docs/claude/` to `.ruckus/` — 11 MET, 1 PARTIAL
+### S1: Rename `docs/claude/` to `.ruckus/` — 10 MET, 2 PARTIAL
 
 | AC | Status | Notes |
 |----|--------|-------|
 | Zero `docs/claude/` references in agents/, skills/, CLAUDE.md, README.md, templates/ | PARTIALLY MET | grep returns 6 matches — all in upgrade/SKILL.md and setup/SKILL.md as intentional legacy-detection/migration logic, not stale references |
+| Verification grep returns zero matches | PARTIALLY MET | Same as above — grep returns non-zero due to intentional migration-logic references |
 | `.ruckus/known-pitfalls.md` path in all agents and skills | MET | |
 | `.ruckus/workflow-upgrades` path in build, fix, setup, upgrade | MET | |
 | Root `CLAUDE.md` is sole copy | MET | |

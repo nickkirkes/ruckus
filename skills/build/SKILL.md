@@ -93,7 +93,7 @@ Do NOT present the plan to the human yet — proceed directly to Stage 4.
 2. Confirm it contains a `## Tasks` section with at least one task (T1)
 3. If either check fails: warn the human and loop back to Stage 3
 
-Dispatch `/ruckus:review-plan` as a blocking subagent call. Use model `sonnet`. Pass the plan file path from Stage 3 as the input.
+Dispatch `/roughly:review-plan` as a blocking subagent call. Use model `sonnet`. Pass the plan file path from Stage 3 as the input.
 
 The subagent verifies completeness, assumptions, and overengineering against the actual codebase. It returns a structured PASS / NEEDS REVISION verdict.
 
@@ -192,7 +192,7 @@ Compact context before review. Preserve: feature summary, task ID list, list of 
 
 **MANDATORY — this stage cannot be skipped.**
 
-Invoke `/ruckus:review` (or the project's review command) with a description of what was built. This dispatches code-reviewer, static-analysis, and silent-failure-hunter in parallel.
+Invoke `/roughly:review` (or the project's review command) with a description of what was built. This dispatches code-reviewer, static-analysis, and silent-failure-hunter in parallel.
 
 Fix critical findings and re-run review (max 2 review-fix cycles; if still failing, present findings to human).
 
@@ -206,7 +206,7 @@ Compact context before verification. Preserve: feature summary, files changed, r
 
 **MANDATORY — this stage cannot be skipped.**
 
-Invoke `/ruckus:verify-all` (or the project's verify-all command). Fix failures and re-run until clean.
+Invoke `/roughly:verify-all` (or the project's verify-all command). Fix failures and re-run until clean.
 
 **Gate:** "Verification passed. Ready to commit? (yes / additional checks / abort)"
 
@@ -247,12 +247,12 @@ Three responses per upgrade:
 
 **Check: CLAUDE.md quality (every run, not gated by upgrades file):**
 Read CLAUDE.md. If it's missing build command, type check command, or stack summary, warn:
-> "CLAUDE.md is missing [fields]. This reduces the quality of every Ruckus skill. Run `/ruckus:setup` to fix, or provide the missing info now."
+> "CLAUDE.md is missing [fields]. This reduces the quality of every Ruckus skill. Run `/roughly:setup` to fix, or provide the missing info now."
 Continue with whatever the human provides — not a hard block, but a visible gap.
 
 **Check: investigator-v1:**
 If no `investigator-v1-added` in `.ruckus/workflow-upgrades` AND source file count > 50 AND not declined:
-> "This project has [N] source files but the investigator agent isn't enabled. It improves bug diagnosis for `/ruckus:fix`. Enable it? (yes / not yet / never)"
+> "This project has [N] source files but the investigator agent isn't enabled. It improves bug diagnosis for `/roughly:fix`. Enable it? (yes / not yet / never)"
 If yes: record `investigator-v1-added YYYY-MM-DD` in `.ruckus/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 **Check: pitfalls-organized-v1:**

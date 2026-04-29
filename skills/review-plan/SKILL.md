@@ -1,6 +1,6 @@
 ---
 name: review-plan
-description: "Review an implementation plan against the actual codebase. Dispatched as a subagent by /ruckus:build and /ruckus:fix — checks completeness, assumptions, and overengineering. Returns structured PASS/NEEDS REVISION verdict."
+description: "Review an implementation plan against the actual codebase. Dispatched as a subagent by /roughly:build and /roughly:fix — checks completeness, assumptions, and overengineering. Returns structured PASS/NEEDS REVISION verdict."
 disable-model-invocation: true
 ---
 
@@ -16,7 +16,7 @@ You receive:
 - A path to the plan file
 - The project's CLAUDE.md and .ruckus/known-pitfalls.md
 
-Read all three before starting verification. If CLAUDE.md is missing, return NEEDS REVISION with verdict: "CLAUDE.md not found — run /ruckus:setup first." If .ruckus/known-pitfalls.md is missing, note the gap in your report but proceed — it is informational, not blocking.
+Read all three before starting verification. If CLAUDE.md is missing, return NEEDS REVISION with verdict: "CLAUDE.md not found — run /roughly:setup first." If .ruckus/known-pitfalls.md is missing, note the gap in your report but proceed — it is informational, not blocking.
 
 ## Verification Process
 

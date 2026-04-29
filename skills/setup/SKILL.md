@@ -37,7 +37,7 @@ Display: "Project maturity: [level] ([N] source files). Detected: [test framewor
 ## STEP 2: CHECK EXISTING STATE
 
 If `docs/claude/` exists:
-> "Legacy Ruckus installation detected at `docs/claude/`. Run `/ruckus:upgrade` to migrate to `.ruckus/` first, then re-run `/ruckus:setup` if needed. (proceed anyway / abort)"
+> "Legacy Ruckus installation detected at `docs/claude/`. Run `/roughly:upgrade` to migrate to `.ruckus/` first, then re-run `/roughly:setup` if needed. (proceed anyway / abort)"
 
 Else if `.ruckus/` or `.claude/` already exists:
 > "Existing Ruckus/Claude configuration detected. Options: (enrich) add missing fields / (replace) fresh setup / (abort)"
@@ -146,7 +146,7 @@ Based on detected maturity:
 > "Project is scaffolded. Standard configuration applied."
 
 **Established:**
-> "Project is established ([N] files). Enable the investigator agent for `/ruckus:fix`? It traces code paths to diagnose bugs. (yes / not yet)"
+> "Project is established ([N] files). Enable the investigator agent for `/roughly:fix`? It traces code paths to diagnose bugs. (yes / not yet)"
 If yes: record `investigator-v1-added YYYY-MM-DD` in `.ruckus/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 ---
@@ -166,7 +166,7 @@ Display what was created:
 - .claude/settings.json — [formatter hook configured / empty hooks structure]
 
 **Next steps:**
-- Run `/ruckus:build` for your first feature
-- Run `/ruckus:fix` when you hit a bug
+- Run `/roughly:build` for your first feature
+- Run `/roughly:fix` when you hit a bug
 - Ruckus will self-upgrade as your project matures
 ```

@@ -77,7 +77,7 @@ If yes, dispatch the `doc-writer` agent with the new pitfall description.
 ## STEP 4: VERDICT
 
 If critical findings exist:
-> "Review found [N] critical issues. These must be fixed before proceeding. Re-invoke `/ruckus:review` after fixing to confirm resolution."
+> "Review found [N] critical issues. These must be fixed before proceeding. Re-invoke `/roughly:review` after fixing to confirm resolution."
 
 If only warnings/info:
 > "Review passed with [N] warnings. Proceed or address warnings?"

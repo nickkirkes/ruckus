@@ -16,7 +16,7 @@ You are the build orchestrator. Drive this pipeline sequentially with human gate
 
 Feature to build: $ARGUMENTS
 
-**Pre-flight migration check:** If `.ruckus/` directory exists in the project, abort with: "Legacy v0.1.3 installation detected. Run `/roughly:upgrade` first to migrate from `.ruckus/` to `.roughly/`, then re-run."
+**Pre-flight migration check:** If `.ruckus/.migration-in-progress`, `.ruckus/known-pitfalls.md`, or `.ruckus/workflow-upgrades` exists, abort with: "Legacy `.ruckus/` state detected (v0.1.3 install or incomplete v0.1.4 migration). Run `/roughly:upgrade` to migrate or resume, then re-run." A `.ruckus/` directory containing only user-extras (post-`leave` state from a completed upgrade) is fine — proceed.
 
 ---
 

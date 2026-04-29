@@ -1,11 +1,11 @@
 ---
 name: setup
-description: "Bootstrap Ruckus for a new project. Detects maturity level, collects required project context, creates CLAUDE.md and supporting docs. Does not complete until minimum viable context is provided."
+description: "Bootstrap Roughly for a new project. Detects maturity level, collects required project context, creates CLAUDE.md and supporting docs. Does not complete until minimum viable context is provided."
 ---
 
-# Ruckus Setup
+# Roughly Setup
 
-Bootstrap Ruckus for this project. Detects project maturity, collects essential context through targeted questions, and creates the documentation structure that powers all other Ruckus skills.
+Bootstrap Roughly for this project. Detects project maturity, collects essential context through targeted questions, and creates the documentation structure that powers all other Roughly skills.
 
 **Setup does NOT complete until required fields are provided.**
 
@@ -28,7 +28,7 @@ Also detect:
 - Test framework (jest, vitest, pytest, go test, etc.)
 - Formatter (prettier, black, gofmt, etc.)
 - CI configuration (.github/workflows, .gitlab-ci, etc.)
-- Existing .claude/, .ruckus/, or docs/claude/ directory
+- Existing .claude/, .roughly/, or docs/claude/ directory
 
 Display: "Project maturity: [level] ([N] source files). Detected: [test framework], [formatter], [CI]."
 
@@ -37,10 +37,10 @@ Display: "Project maturity: [level] ([N] source files). Detected: [test framewor
 ## STEP 2: CHECK EXISTING STATE
 
 If `docs/claude/` exists:
-> "Legacy Ruckus installation detected at `docs/claude/`. Run `/roughly:upgrade` to migrate to `.ruckus/` first, then re-run `/roughly:setup` if needed. (proceed anyway / abort)"
+> "Legacy Roughly installation detected at `docs/claude/`. Run `/roughly:upgrade` to migrate to `.roughly/` first, then re-run `/roughly:setup` if needed. (proceed anyway / abort)"
 
-Else if `.ruckus/` or `.claude/` already exists:
-> "Existing Ruckus/Claude configuration detected. Options: (enrich) add missing fields / (replace) fresh setup / (abort)"
+Else if `.roughly/` or `.claude/` already exists:
+> "Existing Roughly/Claude configuration detected. Options: (enrich) add missing fields / (replace) fresh setup / (abort)"
 
 If enriching, read existing files and identify gaps: any of the 6 required fields (Step 3) that are missing, empty, or contain placeholder text ("TBD", "TODO", template markers like `{{...}}`). Exception: for the type-check and test-command fields only, answers like "none", "none yet", or other deliberate opt-outs are valid — do not treat them as gaps. Only prompt for gap fields — preserve all existing non-gap content.
 
@@ -83,7 +83,7 @@ Prompt but don't block on:
 
 ## STEP 5: CREATE FILES
 
-Create `.ruckus/` directory if it doesn't exist.
+Create `.roughly/` directory if it doesn't exist.
 
 ### 5a. CLAUDE.md
 Read `skills/setup/templates/CLAUDE.md.template`. Derive `{{PROJECT_NAME}}` from the repo directory name (or package.json `name` field if available). Replace all `{{PLACEHOLDER}}` markers with collected values:
@@ -99,10 +99,10 @@ Read `skills/setup/templates/CLAUDE.md.template`. Derive `{{PROJECT_NAME}}` from
 
 Write to root `CLAUDE.md`.
 
-`CLAUDE.md` is the canonical project context file, read by all Ruckus agents.
+`CLAUDE.md` is the canonical project context file, read by all Roughly agents.
 
 ### 5b. known-pitfalls.md
-Read `skills/setup/templates/known-pitfalls.md.template`. Replace `{{PROJECT_NAME}}` with the project name and `{{DOMAIN_DESCRIPTION}}` with the domain description from Step 3. Write to `.ruckus/known-pitfalls.md`.
+Read `skills/setup/templates/known-pitfalls.md.template`. Replace `{{PROJECT_NAME}}` with the project name and `{{DOMAIN_DESCRIPTION}}` with the domain description from Step 3. Write to `.roughly/known-pitfalls.md`.
 
 ### 5c. .claudeignore
 Read `skills/setup/templates/claudeignore.template`. Write to `.claudeignore` (project root).
@@ -124,12 +124,12 @@ If `.claude/settings.json` already exists, leave it unchanged — it may contain
 ### 5e. workflow-upgrades
 Read the current plugin version from `.claude-plugin/plugin.json` (the `version` field).
 
-If `.ruckus/workflow-upgrades` does **not** exist: create it with the version line:
+If `.roughly/workflow-upgrades` does **not** exist: create it with the version line:
 ```
-ruckus-version [version from plugin.json] [today's date YYYY-MM-DD]
+roughly-version [version from plugin.json] [today's date YYYY-MM-DD]
 ```
 
-If the file **already exists** (re-run / enrich mode): update or insert the `ruckus-version` line at the top, preserving all other entries (maturity check decisions from prior build/fix runs).
+If the file **already exists** (re-run / enrich mode): update or insert the `roughly-version` line at the top, preserving all other entries (maturity check decisions from prior build/fix runs).
 
 This file tracks plugin version (for upgrade detection) and maturity check decisions (recorded by build/fix pipelines at wrap-up).
 
@@ -140,14 +140,14 @@ This file tracks plugin version (for upgrade detection) and maturity check decis
 Based on detected maturity:
 
 **Greenfield:**
-> "Project is greenfield. Ruckus will self-upgrade as it grows — investigator agent at 50+ files, Stop hook when verification matures."
+> "Project is greenfield. Roughly will self-upgrade as it grows — investigator agent at 50+ files, Stop hook when verification matures."
 
 **Scaffolded:**
 > "Project is scaffolded. Standard configuration applied."
 
 **Established:**
 > "Project is established ([N] files). Enable the investigator agent for `/roughly:fix`? It traces code paths to diagnose bugs. (yes / not yet)"
-If yes: record `investigator-v1-added YYYY-MM-DD` in `.ruckus/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
+If yes: record `investigator-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 ---
 
@@ -155,18 +155,18 @@ If yes: record `investigator-v1-added YYYY-MM-DD` in `.ruckus/workflow-upgrades`
 
 Display what was created:
 ```
-# Ruckus Setup Complete
+# Roughly Setup Complete
 
 **Maturity:** [level] ([N] files)
 **Created:**
 - CLAUDE.md — project context for all skills
-- .ruckus/known-pitfalls.md — grows as you work
-- .ruckus/workflow-upgrades — tracks plugin version and maturity decisions
+- .roughly/known-pitfalls.md — grows as you work
+- .roughly/workflow-upgrades — tracks plugin version and maturity decisions
 - .claudeignore — keeps context lean
 - .claude/settings.json — [formatter hook configured / empty hooks structure]
 
 **Next steps:**
 - Run `/roughly:build` for your first feature
 - Run `/roughly:fix` when you hit a bug
-- Ruckus will self-upgrade as your project matures
+- Roughly will self-upgrade as your project matures
 ```

@@ -141,7 +141,7 @@ You are implementing a single task for {{PROJECT_NAME}}.
 
 ## Context
 
-Read CLAUDE.md and .ruckus/known-pitfalls.md before implementing.
+Read CLAUDE.md and .roughly/known-pitfalls.md before implementing.
 
 ## UI Task (include ONLY when plan task has UI: yes — omit entirely for UI: no)
 
@@ -228,13 +228,13 @@ Compact context before wrap-up. Preserve: feature summary, files changed, task c
    ```
 3. Show commit for approval. Commit but do NOT push.
 4. Run maturity checks (see below).
-5. Ask: "Did this work reveal any new pitfalls or conventions for `.ruckus/known-pitfalls.md`?" If yes, dispatch `doc-writer` agent.
+5. Ask: "Did this work reveal any new pitfalls or conventions for `.roughly/known-pitfalls.md`?" If yes, dispatch `doc-writer` agent.
 
 ---
 
 ## MATURITY CHECKS (run at wrap-up)
 
-Read `.ruckus/workflow-upgrades` (create if missing).
+Read `.roughly/workflow-upgrades` (create if missing).
 
 Check IDs are versioned (e.g., `investigator-v1`). When the plugin updates a check, the version bumps and previously-declined checks are re-offered with an explanation of what changed.
 
@@ -247,16 +247,16 @@ Three responses per upgrade:
 
 **Check: CLAUDE.md quality (every run, not gated by upgrades file):**
 Read CLAUDE.md. If it's missing build command, type check command, or stack summary, warn:
-> "CLAUDE.md is missing [fields]. This reduces the quality of every Ruckus skill. Run `/roughly:setup` to fix, or provide the missing info now."
+> "CLAUDE.md is missing [fields]. This reduces the quality of every Roughly skill. Run `/roughly:setup` to fix, or provide the missing info now."
 Continue with whatever the human provides — not a hard block, but a visible gap.
 
 **Check: investigator-v1:**
-If no `investigator-v1-added` in `.ruckus/workflow-upgrades` AND source file count > 50 AND not declined:
+If no `investigator-v1-added` in `.roughly/workflow-upgrades` AND source file count > 50 AND not declined:
 > "This project has [N] source files but the investigator agent isn't enabled. It improves bug diagnosis for `/roughly:fix`. Enable it? (yes / not yet / never)"
-If yes: record `investigator-v1-added YYYY-MM-DD` in `.ruckus/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
+If yes: record `investigator-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 **Check: pitfalls-organized-v1:**
-If `.ruckus/known-pitfalls.md` > 80 lines AND no `pitfalls-organized-v1` within last 30 days:
+If `.roughly/known-pitfalls.md` > 80 lines AND no `pitfalls-organized-v1` within last 30 days:
 > "known-pitfalls.md has grown to [N] lines. Deduplicate and organize?"
 
 **Check: test-verify-v1:**

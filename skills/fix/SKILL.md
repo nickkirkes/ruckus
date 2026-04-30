@@ -243,9 +243,7 @@ Compact context before wrap-up. Preserve: issue summary with root cause, files c
 
 Read `.roughly/workflow-upgrades` (create if missing).
 
-Check IDs are versioned (e.g., `investigator-v1`). When the plugin updates a check, the version bumps and previously-declined checks are re-offered with an explanation of what changed.
-
-Format per entry: `[check-id]-[added|declined] YYYY-MM-DD`
+Check IDs are versioned (e.g., `investigator-v1`). When the plugin updates a check, the version bumps and previously-declined checks are re-offered with an explanation of what changed. Format per entry: `[check-id]-[added|declined] YYYY-MM-DD`.
 
 Three responses per upgrade:
 - **yes** — apply, record `[id]-added YYYY-MM-DD`

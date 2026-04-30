@@ -14,6 +14,8 @@ Epic file: $ARGUMENTS
 
 If `$ARGUMENTS` is empty, ask: **"Which epic file should I review? (provide path)"**
 
+**Pre-flight migration check:** If `.ruckus/.migration-in-progress`, `.ruckus/known-pitfalls.md`, or `.ruckus/workflow-upgrades` exists, abort with: "Legacy `.ruckus/` state detected (v0.1.3 install or incomplete v0.1.4 migration). Run `/roughly:upgrade` to migrate or resume, then re-run." A `.ruckus/` directory containing only user-extras (post-`leave` state from a completed upgrade) is fine — proceed.
+
 ---
 
 ## STEP 1: READ AND VALIDATE
@@ -31,7 +33,7 @@ If the file is missing critical sections, note the gaps but proceed with review.
 
 Dispatch the `epic-reviewer` agent (model: `opus`) with:
 - The full epic file content
-- Instruction to read CLAUDE.md and .ruckus/known-pitfalls.md for project context
+- Instruction to read CLAUDE.md and .roughly/known-pitfalls.md for project context
 - The review dimensions below
 
 **Review dimensions:**
@@ -57,6 +59,6 @@ When the agent returns, display the review with:
 
 Save the review alongside the epic file:
 - If epic is at `docs/epics/E02.md`, save review at `docs/epics/E02-review.md`
-- Include date and reviewer (Ruckus epic-reviewer)
+- Include date and reviewer (Roughly epic-reviewer)
 
 Ask: **"Review saved. Address findings before implementation, or proceed as-is?"**

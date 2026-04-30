@@ -15,6 +15,8 @@ Review scope: $ARGUMENTS
 If `$ARGUMENTS` is empty, review all uncommitted changes:
 !`git diff --name-only HEAD 2>/dev/null || echo "no changes"`
 
+**Pre-flight migration check:** If `.ruckus/.migration-in-progress`, `.ruckus/known-pitfalls.md`, or `.ruckus/workflow-upgrades` exists, abort with: "Legacy `.ruckus/` state detected (v0.1.3 install or incomplete v0.1.4 migration). Run `/roughly:upgrade` to migrate or resume, then re-run." A `.ruckus/` directory containing only user-extras (post-`leave` state from a completed upgrade) is fine — proceed.
+
 ---
 
 ## STEP 1: DISPATCH AGENTS
@@ -25,7 +27,7 @@ Launch all three agents in parallel (single message, multiple tool calls):
 Dispatch the `code-reviewer` agent with:
 - The review scope description
 - List of changed files
-- Instruction to read CLAUDE.md and .ruckus/known-pitfalls.md first
+- Instruction to read CLAUDE.md and .roughly/known-pitfalls.md first
 
 ### Agent 2: `static-analysis`
 Dispatch the `static-analysis` agent with:
@@ -35,7 +37,7 @@ Dispatch the `static-analysis` agent with:
 ### Agent 3: `silent-failure-hunter`
 Dispatch the `silent-failure-hunter` agent with:
 - List of changed files
-- Instruction to read .ruckus/known-pitfalls.md for domain-specific risk patterns
+- Instruction to read .roughly/known-pitfalls.md for domain-specific risk patterns
 
 ---
 
@@ -68,7 +70,7 @@ When all agents return, merge findings into a single report grouped by severity:
 
 ## STEP 3: KNOWN PITFALLS UPDATE
 
-Ask: **"Did this review reveal patterns that should be added to `.ruckus/known-pitfalls.md`?"**
+Ask: **"Did this review reveal patterns that should be added to `.roughly/known-pitfalls.md`?"**
 
 If yes, dispatch the `doc-writer` agent with the new pitfall description.
 

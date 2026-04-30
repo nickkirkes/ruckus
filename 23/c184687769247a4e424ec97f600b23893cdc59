@@ -1,0 +1,42 @@
+docs/plans/S2.3-agent-preamble-sync-plan.md
+  c2f1c5716b5ee08b 1-201
+agents/agent-preamble.md
+  c2f1c5716b5ee08b 13-14,18
+agents/silent-failure-hunter.md
+  c2f1c5716b5ee08b 18
+agents/investigator.md
+  c2f1c5716b5ee08b 22
+agents/epic-reviewer.md
+  c2f1c5716b5ee08b 18
+agents/code-reviewer.md
+  c2f1c5716b5ee08b 18
+agents/doc-writer.md
+  c2f1c5716b5ee08b 22
+agents/discovery.md
+  c2f1c5716b5ee08b 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "23c184687769247a4e424ec97f600b23893cdc59",
+  "prompts": {
+    "c2f1c5716b5ee08b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "58e4c2e9-d815-44c6-824a-0c1cff71d92e",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 210,
+      "total_deletions": 8,
+      "accepted_lines": 210,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_5c32ae20a746c8": {
+      "author": "Nick Kirkes"
+    }
+  }
+}

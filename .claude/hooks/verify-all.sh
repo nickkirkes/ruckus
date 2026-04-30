@@ -39,8 +39,20 @@ if [ "$opens" != "1" ] || [ "$closes" != "1" ]; then
   issues="${issues}- agent-preamble.md HTML comment broken: $opens openers, $closes closers\n"
 fi
 
+emit_drift_json() {
+  local m="$1"
+  if command -v jq >/dev/null 2>&1; then
+    jq -nc --arg m "$m" '{systemMessage: $m}'
+  elif command -v python3 >/dev/null 2>&1; then
+    python3 -c 'import json,sys; print(json.dumps({"systemMessage": sys.argv[1]}))' "$m"
+  fi
+  # If neither is available, drop the structured output rather than emit
+  # malformed JSON. The hook still exits 0 below; drift is detected on
+  # the next run when a JSON encoder is available.
+}
+
 if [ -n "$issues" ]; then
   msg=$(printf 'verify-all drift detected:\n%b' "$issues")
-  jq -nc --arg m "$msg" '{systemMessage: $m}'
+  emit_drift_json "$msg" || true
 fi
 exit 0

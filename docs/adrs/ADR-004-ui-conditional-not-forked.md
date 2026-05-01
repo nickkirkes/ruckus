@@ -38,7 +38,7 @@ Maintaining two commands (`build` and `build-ui`) meant duplicating the entire 8
 ### Negative
 - Planning must include UI flags per task — adds a small burden to the planning stage
 - If an agent misjudges a task's UI flag, the wrong skill configuration is used for that task
-- The frontend-design skill must be installed separately (it's a public Anthropic skill, not bundled with Ruckus)
+- The frontend-design skill must be installed separately (it's a public Anthropic skill, not bundled with Roughly)
 
 ### Neutral
 - Projects with no UI work at all will never trigger the frontend-design loading — the flag defaults to `no`

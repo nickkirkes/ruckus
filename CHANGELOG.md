@@ -1,8 +1,8 @@
 # Changelog
 
-## [0.1.4] — In Progress (E02 rename release)
+## [0.1.4] — 2026-04-30
 
-> Hard-cut rename from `ruckus` to `roughly`. Behavior is identical to v0.1.3 — only names, paths, namespace identifiers, and the workflow-upgrades version-line identifier change. Final release date and tag will be set when S2.7 (verification, version bump, tag) completes.
+> Hard-cut rename from `ruckus` to `roughly`. Behavior is identical to v0.1.3 — only names, paths, namespace identifiers, and the workflow-upgrades version-line identifier change.
 
 ### Changed
 
@@ -36,13 +36,12 @@
 
 - Behavior is identical to v0.1.3 across all 9 skills and 7 agents. The plugin's pipeline gates, subagent dispatch patterns, two-stage review (ADR-007), Opus-for-epic-reviewer-only model selection (ADR-008), and runtime-context-loading from CLAUDE.md / known-pitfalls.md (ADR-006) are all preserved unchanged.
 - Prior CHANGELOG entries (v0.1.0 through v0.1.3) retain `ruckus` naming as historical fact.
-- ADR body text in ADR-004/005/006/008 retains its original `/ruckus:*` and capital-R `Ruckus` references as historical decision text. v0.1.4 footnotes will be appended to those four ADRs in S2.5.
+- ADR body text in ADR-004/005/006/008 retains its original `/ruckus:*` and capital-R `Ruckus` references as historical decision text. v0.1.4 footnotes were appended to those four ADRs in E02.S2.5.
 - `docs/plans/**` historical implementation plans retain their original naming as historical fact.
-- Remaining E02 work for v0.1.4: S2.4 (templates), S2.5 (README/CLAUDE.md/CONTRIBUTING.md prose + ADR footnotes + the user-facing "Migrating from ruckus (v0.1.3) to roughly (v0.1.4)" README subsection), S2.7 (final verification, version bump, finalize this CHANGELOG entry, tag).
 
 ### Migration
 
-If you were using the previous `ruckus` plugin, follow these steps once per machine and once per project (the user-facing migration prose will land in README.md via S2.5; this is the CHANGELOG copy):
+If you were using the previous `ruckus` plugin, follow these steps once per machine and once per project (mirrored in the README's "Migrating from ruckus" section):
 1. Install the new plugin under the `roughly` name: `/plugin marketplace add nickkirkes/roughly` followed by `/plugin install roughly@nickkirkes`.
 2. Run `/roughly:upgrade` from each project that previously used `/ruckus:*`. The upgrade detects the legacy `.ruckus/` directory and migrates `known-pitfalls.md`, `workflow-upgrades`, and any path references in your root `CLAUDE.md` to `.roughly/`. The migration is resumable on partial failure via the `.ruckus/.migration-in-progress` marker.
 3. Optionally uninstall the old plugin: `/plugin uninstall ruckus`. The new and old plugins can coexist temporarily, but only `/roughly:upgrade` runs the migration; the old `/ruckus:*` commands continue to operate on the legacy paths until uninstalled.

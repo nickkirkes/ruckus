@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stop hook: structural verify-all for the ruckus plugin.
+# Stop hook: structural verify-all for the roughly plugin.
 # Fires after every Claude turn. Non-blocking — informational only.
 # Outputs JSON with systemMessage when drift is detected; silent otherwise.
 
@@ -8,7 +8,7 @@ shopt -s nullglob  # globs that match nothing expand to empty, not literal patte
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
 if [ -z "$ROOT" ] || [ ! -f "$ROOT/.claude-plugin/plugin.json" ]; then
-  exit 0  # not in the ruckus repo — silent no-op
+  exit 0  # not in the roughly repo — silent no-op
 fi
 cd "$ROOT"
 

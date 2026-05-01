@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-ADRs capture the reasoning behind significant design decisions in Ruckus. They exist so contributors can understand *why* the code is structured a certain way — not just *how*.
+ADRs capture the reasoning behind significant design decisions in Roughly. They exist so contributors can understand *why* the code is structured a certain way — not just *how*.
 
 ## Numbering
 

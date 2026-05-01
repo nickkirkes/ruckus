@@ -1,0 +1,25 @@
+docs/plans/E03-S0-plan-mode-detection-spike-plan.md
+  9310bd8da3a1b669 1-236
+docs/planning/spikes/plan-mode-detection-findings.md
+  9310bd8da3a1b669 1-271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "9dceb2eb4dd8f989c0627852ca52b1f049cc69ec",
+  "prompts": {
+    "9310bd8da3a1b669": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d95ebee0-bc56-4937-9a2c-7cda7ae425d4",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 516,
+      "total_deletions": 9,
+      "accepted_lines": 507,
+      "overriden_lines": 0
+    }
+  }
+}

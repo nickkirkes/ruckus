@@ -1,0 +1,28 @@
+.roughly/known-pitfalls.md
+  94bd722be09e099e 38-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "1fa2eceb9456313b0a60ef4fe852955ce1a3c699",
+  "prompts": {
+    "94bd722be09e099e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d07ec63-c958-4d29-b72c-34f5d9301a3b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_5c32ae20a746c8": {
+      "author": "Nick Kirkes"
+    }
+  }
+}

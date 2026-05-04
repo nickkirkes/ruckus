@@ -72,7 +72,7 @@ The current Process section is at lines 26-33. Renumber the existing step 5 "Ded
 
 ```
 5. **Post-write suggestions (only when writing to `.roughly/known-pitfalls.md`)**:
-   - **Organize suggestion:** Run `wc -l .roughly/known-pitfalls.md` after writing. If the post-write line count exceeds 80, append a single one-line note to your return summary: `Note: known-pitfalls.md is now [N] lines — consider reorganizing or deduplicating in a future session.` Do not modify the file further; the suggestion goes only in the return summary.
+   - **Organize suggestion:** After writing, `Read` `.roughly/known-pitfalls.md` and count the lines in the result. If the post-write line count exceeds 80, append a single one-line note to your return summary: `Note: known-pitfalls.md is now [N] lines — consider reorganizing or deduplicating in a future session.` Do not modify the file further; the suggestion goes only in the return summary.
    - **Test-integration suggestion:** If a test config is present (any of: `package.json` with a `scripts.test` field whose value is not the npm-init default `"echo \"Error: no test specified\" && exit 1"`; `pytest.ini`; `pyproject.toml` containing `[tool.pytest]`; any `jest.config.*`) AND CLAUDE.md's Commands table Test row value is `none`, `none yet`, blank, or the un-replaced `{{TEST_COMMAND}}` placeholder, append a single one-line note to your return summary: `Note: project has test config but verify-all skips tests — consider updating CLAUDE.md Commands table Test row.` Do not modify CLAUDE.md.
 ```
 

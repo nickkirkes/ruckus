@@ -261,8 +261,14 @@ If no `investigator-v1-added` in `.roughly/workflow-upgrades` AND source file co
 If yes: record `investigator-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`. The agent definition ships with the plugin — no file copy needed.
 
 **Check: stop-hook-v1:**
-If `.claude/settings.json` has no `Stop` hook AND verify-all has 2+ meaningful checks AND not declined:
-> "Verification is robust enough to enforce. Add a Stop hook?"
+If `.claude/settings.json` has no `Stop` entry AND verify-all has 2+ meaningful checks AND CLAUDE.md type-check is set (not `none`) AND not declined:
+> "Verification is robust enough to enforce. Add a Stop hook? It runs type-check after every Claude turn — silent on success, surfaces drift. (yes / not yet / never)"
+
+If yes: first check that `jq` is available. If unavailable, warn the human and skip the install (write nothing to disk; no record — re-offer next run when jq is available). Otherwise: ensure `.claude/hooks/` exists (`mkdir -p .claude/hooks/`); if `mkdir` fails, warn the human and abort the install (no record). Then read `skills/setup/templates/verify-all-stop-hook.sh.template`, substitute `{{PROJECT_NAME}}` and `{{TYPE_CHECK_COMMAND}}` (from CLAUDE.md), write to `.claude/hooks/verify-all.sh`, `chmod +x`. Then add a `Stop` entry to `.claude/settings.json` via `jq` (create file with `{"hooks":{}}` first if absent). Record `stop-hook-v1-added YYYY-MM-DD`.
+
+(If `.claude/settings.json` already has a `Stop` entry when this gate fires, skip silently — the gate condition above will have already excluded this run. The conflict prompt lives in setup's Step 5d Branch 4 for the initial-install path, where it is reachable.)
+
+If never: record `stop-hook-v1-declined`.
 
 ---
 

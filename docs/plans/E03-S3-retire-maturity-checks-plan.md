@@ -244,10 +244,11 @@ wc -l skills/build/SKILL.md skills/fix/SKILL.md
 wc -w agents/doc-writer.md
 # Must be ≤ 500
 
-# Cross-reference sweep
-grep -rn "pitfalls-organized-v1\|test-verify-v1" skills/ agents/ README.md docs/adrs/ docs/ROADMAP.md
+# Cross-reference sweep — broad pattern to also catch the bare `pitfalls-organized`
+# prose form (no version suffix) that T4 removes from README L222.
+grep -rn "pitfalls-organized\|test-verify-v1" skills/ agents/ README.md docs/adrs/ docs/ROADMAP.md
 # Expected hits (intentional):
-#   - ADR-005: 3 hits (L17 and L21 are existing Decision-section examples; the new T3 footnote also matches the pattern)
+#   - ADR-005: 3 hits (L17 and L21 are existing Decision-section examples for `test-verify-v1`; the new T3 footnote also matches the pattern)
 #   - docs/ROADMAP.md: 1 hit on L55 (the T5 retrospective "✅ Done" line names both retired IDs by design, so future readers can see what was retired)
 # Hits that must be zero: skills/, agents/, README.md.
 ```

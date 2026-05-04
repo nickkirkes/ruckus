@@ -1,0 +1,25 @@
+CHANGELOG.md
+  7bdcdc0a2d44688d 9-14
+docs/planning/epics/E03-trust-and-ergonomics.md
+  7bdcdc0a2d44688d 3,38-39,231,233-247,256-261,263-277,285,749,788-790,808
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "33c74bf1b97b4941744cfd8f6e79a6cfbbe11c7a",
+  "prompts": {
+    "7bdcdc0a2d44688d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "136846fa-01aa-4afe-ae23-c2889ca8819c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 54,
+      "total_deletions": 20,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    }
+  }
+}

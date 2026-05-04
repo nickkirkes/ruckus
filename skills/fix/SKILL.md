@@ -235,7 +235,7 @@ Compact context before wrap-up. Preserve: issue summary with root cause, files c
    ```
 3. Show commit for approval. Commit but do NOT push.
 4. Run maturity checks (see below).
-5. Ask: "Did this fix reveal any new pitfalls for `.roughly/known-pitfalls.md`?" If yes, dispatch `doc-writer` agent.
+5. Ask: "Did this fix reveal any new pitfalls or conventions for `.roughly/known-pitfalls.md`?" If yes, dispatch `doc-writer` agent.
 
 ---
 

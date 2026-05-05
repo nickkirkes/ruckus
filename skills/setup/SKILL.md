@@ -159,31 +159,51 @@ Only when both checks pass, inspect `.hooks.UserPromptSubmit`:
 **Branch 4 — stop-hook-v1 was accepted in Step 6 below:**
 (This branch runs only if the Step 6 offer was accepted. Execution order is 5a→5b→5c→5d Branches 1–3→6→5d Branch 4→5e→7. If declined or not offered, skip.)
 
-First check that `jq` is available. If unavailable, surface a Step 7 blocking-warning matching the Branch 3 pattern: `WARNING: jq not installed — could not install Stop hook. Install jq and re-run /roughly:setup.` Abort Branch 4: write nothing to disk and write no `.roughly/workflow-upgrades` record (the offer is re-issued next run when jq is available). Do NOT direct the user toward a manual install path — Branch 4 writes nothing on this branch, so any "manually point Stop at .claude/hooks/verify-all.sh" advice would target a non-existent file.
+**Branch 4 invariant — collect ALL decisions BEFORE any disk mutations.** This branch can prompt the user twice (settings-conflict and file-conflict). Every prompt outcome must be resolved into a final install plan BEFORE we write or delete any file. Otherwise the second prompt's abort path can destroy state the first prompt's choice authorized only conditionally.
 
-Then validate that the existing `.claude/settings.json` parses cleanly: `jq empty .claude/settings.json`. If parse fails (e.g., Branch 3 above already detected malformed JSON and surfaced a warning but did not repair the file), surface a Step 7 warning: `WARNING: existing .claude/settings.json is invalid JSON — Stop hook not registered. Fix the file and re-run /roughly:setup.` Abort Branch 4 with no hook file write and no `.roughly/workflow-upgrades` record. This validation must happen before any disk writes — otherwise a failed jq merge below leaves the hook file orphaned without a registered Stop entry.
+**Step A — read-only checks (no disk writes).**
 
-Then check whether `.claude/hooks/verify-all.sh` already exists. If it does (from a manually-created hook, another tool, or a customized prior install), prompt the human:
-> "A `.claude/hooks/verify-all.sh` already exists. Options: (overwrite) replace with the verify-all template — your existing file content will be lost / (abort) preserve the existing file and skip Stop-hook installation (records as declined so the offer is not re-issued)"
-- **overwrite:** proceed with the rest of Branch 4 normally — the keep/decline `rm` paths later in the conflict prompt are then authorized to delete the now-templated file because the user explicitly opted to lose their original.
-- **abort:** record `stop-hook-v1-declined` in `.roughly/workflow-upgrades`; do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete the existing user file; return from Branch 4.
+First check that `jq` is available. If unavailable, surface a Step 7 blocking-warning matching the Branch 3 pattern: `WARNING: jq not installed — could not install Stop hook. Install jq and re-run /roughly:setup.` Abort Branch 4: write nothing to disk and write no `.roughly/workflow-upgrades` record. Do NOT direct the user toward a manual install path — Branch 4 writes nothing on this branch.
 
-Otherwise (file does not exist): ensure `.claude/hooks/` exists (`mkdir -p .claude/hooks/`); if `mkdir` fails, surface a Step 7 warning and abort the install (no record). Then read `skills/setup/templates/verify-all-stop-hook.sh.template`, replace `{{PROJECT_NAME}}` with the project name and `{{TYPE_CHECK_COMMAND}}` with the Step 3 question 3 type-check command. Write to `.claude/hooks/verify-all.sh` and `chmod +x`.
+Validate that `.claude/settings.json` parses cleanly: `jq empty .claude/settings.json`. If parse fails, surface a Step 7 warning: `WARNING: existing .claude/settings.json is invalid JSON — Stop hook not registered. Fix the file and re-run /roughly:setup.` Abort with no record.
 
-Then add a `Stop` hook entry to `.claude/settings.json`:
+**Step B — settings-conflict resolution (prompt may fire; no disk writes yet).**
 
-- If `.hooks.Stop` is null, absent, or an empty array (`[]`): add the entry. Use `jq`:
+Inspect `.hooks.Stop` and resolve to a settings-install plan:
+
+- `.hooks.Stop` is null, absent, or an empty array (`[]`): plan is **add-new** (jq command will be `'.hooks.Stop = [...]'`).
+- `.hooks.Stop` is a non-empty array: prompt the human:
+  > "A Stop hook is already configured in .claude/settings.json. Options: (keep) leave existing untouched / (replace) overwrite with verify-all hook / (merge) add verify-all alongside existing (both fire on every turn) / (decline) don't add"
+  - **keep** or **decline:** plan is **abort-declined**. Record `stop-hook-v1-declined` in `.roughly/workflow-upgrades`. Do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete any pre-existing `.claude/hooks/verify-all.sh` (the user file, if any, is preserved untouched). Return from Branch 4.
+  - **replace:** plan is **replace** (jq command `'.hooks.Stop = [...]'`).
+  - **merge:** verify `.hooks.Stop` is an array (`jq -e '.hooks.Stop | type == "array"' .claude/settings.json`); if not (e.g., a hand-edited single object), surface a Step 7 warning: `WARNING: .claude/settings.json .hooks.Stop is not an array — cannot merge. Convert to array form manually and re-run.` Abort with no record. If the array check passes: plan is **merge** (jq command `'.hooks.Stop += [...]'`).
+- `.hooks.Stop` exists but is not an array: surface a Step 7 warning: `WARNING: .claude/settings.json .hooks.Stop is not an array (Claude Code hooks contract requires array form) — Stop hook not registered. Fix manually and re-run.` Abort with no record.
+
+**Step C — file-conflict prompt (only fires when plan will write the hook file).**
+
+Plans **add-new**, **replace**, and **merge** all need a hook file at `.claude/hooks/verify-all.sh`. Check whether the file already exists. If it does, prompt:
+> "A `.claude/hooks/verify-all.sh` already exists. Options: (overwrite) replace with the verify-all template — your existing file content will be lost / (abort) preserve the existing file and skip Stop-hook installation (records as declined)"
+- **overwrite:** proceed.
+- **abort:** record `stop-hook-v1-declined`; preserve user file untouched; return from Branch 4.
+
+**Step D — commit phase (writes happen here, all decisions final).**
+
+Ensure `.claude/hooks/` exists (`mkdir -p .claude/hooks/`); if `mkdir` fails, surface a Step 7 warning and abort with no record. Read `skills/setup/templates/verify-all-stop-hook.sh.template`, replace `{{PROJECT_NAME}}` with the project name and `{{TYPE_CHECK_COMMAND}}` with the Step 3 question 3 type-check command. Write to `.claude/hooks/verify-all.sh` and `chmod +x`.
+
+Apply the pre-determined settings-install plan via jq:
+
+- **add-new** or **replace:**
   ```bash
   jq '.hooks.Stop = [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":10}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
   ```
-  If the jq command fails (disk full, write-locked, etc.), delete the just-written `.claude/hooks/verify-all.sh` to avoid an orphan file, surface a Step 7 warning, and abort with no `.roughly/workflow-upgrades` record. On success: record `stop-hook-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`. (`.claude/settings.json` is guaranteed to exist at this point — Branches 1, 2, or 3 above always create or validate it before Branch 4 runs.)
+- **merge:**
+  ```bash
+  jq '.hooks.Stop += [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":10}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
+  ```
 
-- If `.hooks.Stop` is a non-empty array (one or more existing entries): prompt the human:
-  > "A Stop hook is already configured in .claude/settings.json. Options: (keep) leave existing untouched / (replace) overwrite with verify-all hook / (merge) add verify-all alongside existing (both fire on every turn) / (decline) don't add"
-  - **keep:** delete `.claude/hooks/verify-all.sh` (it was already written above; the user is keeping their existing Stop hook, not ours). Record `stop-hook-v1-declined` in `.roughly/workflow-upgrades` so the offer is not re-issued. If `rm` fails, surface a Step 7 warning: `WARNING: could not remove .claude/hooks/verify-all.sh — delete manually.`
-  - **replace:** overwrite via the same jq command above. On jq failure, delete the just-written `.claude/hooks/verify-all.sh` and surface a Step 7 warning (no `.roughly/workflow-upgrades` record). On success: record `stop-hook-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`.
-  - **merge:** first verify `.hooks.Stop` is an array (`jq -e '.hooks.Stop | type == "array"' .claude/settings.json`); if not (e.g., a hand-edited single object), surface a Step 7 warning: `WARNING: .claude/settings.json .hooks.Stop is not an array — cannot merge. Convert to array form manually and re-run.` Delete the just-written `.claude/hooks/verify-all.sh` (rm-failure → Step 7 warning), abort the merge with no `.roughly/workflow-upgrades` record. If the array check passes: append using `jq '.hooks.Stop += [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":10}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json` (note the `+=` operator — appends to the existing array). On jq-append failure (disk full, write race, etc.), delete the just-written `.claude/hooks/verify-all.sh` and surface a Step 7 warning (no `.roughly/workflow-upgrades` record). On success: record `stop-hook-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`.
-  - **decline:** delete `.claude/hooks/verify-all.sh` (it was already written above). If `rm` fails, surface a Step 7 warning: `WARNING: could not remove .claude/hooks/verify-all.sh — delete manually.` Record `stop-hook-v1-declined` in `.roughly/workflow-upgrades`.
+If the jq command fails (disk full, write-locked, race condition), delete the just-written `.claude/hooks/verify-all.sh` to avoid an orphan and surface a Step 7 warning. No `.roughly/workflow-upgrades` record. (Note: this rollback only deletes a file we wrote in Step D — Step C's `abort` path returned before any writes, so we never delete a user file the user told us to preserve.)
+
+On success: record `stop-hook-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`.
 
 ### 5e. workflow-upgrades
 Read the current plugin version from `.claude-plugin/plugin.json` (the `version` field).

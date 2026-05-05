@@ -1,0 +1,23 @@
+docs/deferred-investigations.md
+  01a6c50bfd59d49f 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "629ca40299005f0aef430dddbdf67601f327b68c",
+  "prompts": {
+    "01a6c50bfd59d49f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7a379d24-cf1f-4976-b28b-bcb7e95818ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

@@ -40,7 +40,7 @@ The build pipeline's Stage 6 (parallel `code-reviewer` + `static-analysis` + `si
 **Possible causes (untested hypotheses):**
 
 1. **Agent prompts are too narrow.** Each Stage 6 agent has a focused brief; cubic may run a broader scan.
-2. **Model tier.** Stage 6 agents run on `sonnet` per [ADR-008](adrs/). Cubic may use a higher-tier model.
+2. **Model tier.** Stage 6 agents run on `sonnet` per [ADR-008](adrs/ADR-008-opus-for-epic-reviewer-only.md). Cubic may use a higher-tier model.
 3. **Iteration count.** Stage 6 caps at 2 review-fix cycles; cubic ran 6 rounds before saturating.
 4. **Review dimensions missing.** Stage 6's three lenses (code review / static / silent-failure) may not cover what cubic covers (e.g., "every conditional branch enumerates state cleanup," "tool prerequisites validated before mutations" — both already in our pitfalls catalog but not explicitly in the agent briefs).
 5. **Pre-implementation reviewers (review-plan, review-epic) catch design issues but not execution bugs** — already a documented pitfall ([.roughly/known-pitfalls.md](../.roughly/known-pitfalls.md) "Build & Deploy" section). Stage 6 may have the inverse problem: it catches obvious execution bugs but misses systematic categories the pitfalls already document.

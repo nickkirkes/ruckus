@@ -1,0 +1,25 @@
+docs/plans/E03-S2-stop-hook-v1-plan.md
+  01a6c50bfd59d49f 304
+skills/setup/SKILL.md
+  01a6c50bfd59d49f 189,191,193-195,208,210
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "161a0fcc7e072cbf452d7a4d059c17a1953ebebe",
+  "prompts": {
+    "01a6c50bfd59d49f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7a379d24-cf1f-4976-b28b-bcb7e95818ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 6,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}

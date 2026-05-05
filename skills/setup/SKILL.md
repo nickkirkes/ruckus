@@ -163,7 +163,12 @@ First check that `jq` is available. If unavailable, surface a Step 7 blocking-wa
 
 Then validate that the existing `.claude/settings.json` parses cleanly: `jq empty .claude/settings.json`. If parse fails (e.g., Branch 3 above already detected malformed JSON and surfaced a warning but did not repair the file), surface a Step 7 warning: `WARNING: existing .claude/settings.json is invalid JSON — Stop hook not registered. Fix the file and re-run /roughly:setup.` Abort Branch 4 with no hook file write and no `.roughly/workflow-upgrades` record. This validation must happen before any disk writes — otherwise a failed jq merge below leaves the hook file orphaned without a registered Stop entry.
 
-Otherwise: ensure `.claude/hooks/` exists (`mkdir -p .claude/hooks/`); if `mkdir` fails, surface a Step 7 warning and abort the install (no record). Then read `skills/setup/templates/verify-all-stop-hook.sh.template`, replace `{{PROJECT_NAME}}` with the project name and `{{TYPE_CHECK_COMMAND}}` with the Step 3 question 3 type-check command. Write to `.claude/hooks/verify-all.sh` and `chmod +x`.
+Then check whether `.claude/hooks/verify-all.sh` already exists. If it does (from a manually-created hook, another tool, or a customized prior install), prompt the human:
+> "A `.claude/hooks/verify-all.sh` already exists. Options: (overwrite) replace with the verify-all template — your existing file content will be lost / (abort) preserve the existing file and skip Stop-hook installation (records as declined so the offer is not re-issued)"
+- **overwrite:** proceed with the rest of Branch 4 normally — the keep/decline `rm` paths later in the conflict prompt are then authorized to delete the now-templated file because the user explicitly opted to lose their original.
+- **abort:** record `stop-hook-v1-declined` in `.roughly/workflow-upgrades`; do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete the existing user file; return from Branch 4.
+
+Otherwise (file does not exist): ensure `.claude/hooks/` exists (`mkdir -p .claude/hooks/`); if `mkdir` fails, surface a Step 7 warning and abort the install (no record). Then read `skills/setup/templates/verify-all-stop-hook.sh.template`, replace `{{PROJECT_NAME}}` with the project name and `{{TYPE_CHECK_COMMAND}}` with the Step 3 question 3 type-check command. Write to `.claude/hooks/verify-all.sh` and `chmod +x`.
 
 Then add a `Stop` hook entry to `.claude/settings.json`:
 

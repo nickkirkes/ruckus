@@ -66,7 +66,7 @@ shopt -s nullglob
 # repo (violating exit 0 otherwise).
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 [ -z "$ROOT" ] && exit 0
-cd "$ROOT" || exit 0
+cd "$ROOT" 2>/dev/null || exit 0
 
 issues=""
 

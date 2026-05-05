@@ -1,0 +1,23 @@
+skills/setup/SKILL.md
+  01a6c50bfd59d49f 162,164,166,168,170,172-195,199-202,204-206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "e9da9be37ca4ef653ed8b2be87d6fa924ba6ac8a",
+  "prompts": {
+    "01a6c50bfd59d49f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7a379d24-cf1f-4976-b28b-bcb7e95818ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 16,
+      "accepted_lines": 36,
+      "overriden_lines": 0
+    }
+  }
+}

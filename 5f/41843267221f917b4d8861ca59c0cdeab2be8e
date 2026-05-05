@@ -1,0 +1,27 @@
+skills/setup/SKILL.md
+  01a6c50bfd59d49f 164-165
+skills/fix/SKILL.md
+  01a6c50bfd59d49f 267
+skills/build/SKILL.md
+  01a6c50bfd59d49f 264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "5f41843267221f917b4d8861ca59c0cdeab2be8e",
+  "prompts": {
+    "01a6c50bfd59d49f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7a379d24-cf1f-4976-b28b-bcb7e95818ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 2,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}

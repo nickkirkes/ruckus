@@ -1,0 +1,29 @@
+skills/setup/templates/verify-all-stop-hook.sh.template
+  01a6c50bfd59d49f 16-20,23-25,28,32-35,37,42,47,81
+skills/setup/SKILL.md
+  01a6c50bfd59d49f 162,170,174,176,179
+skills/build/SKILL.md
+  01a6c50bfd59d49f 264
+skills/fix/SKILL.md
+  01a6c50bfd59d49f 267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "e03441ffa4c435974b6ef14ffcd0f06362282a0a",
+  "prompts": {
+    "01a6c50bfd59d49f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7a379d24-cf1f-4976-b28b-bcb7e95818ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Nick Kirkes",
+      "messages": [],
+      "total_additions": 24,
+      "total_deletions": 18,
+      "accepted_lines": 24,
+      "overriden_lines": 0
+    }
+  }
+}

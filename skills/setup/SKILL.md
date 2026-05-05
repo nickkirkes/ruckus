@@ -194,14 +194,16 @@ Apply the pre-determined settings-install plan via jq:
 
 - **add-new** or **replace:**
   ```bash
-  jq '.hooks.Stop = [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":10}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
+  jq '.hooks.Stop = [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":30}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
   ```
 - **merge:**
   ```bash
-  jq '.hooks.Stop += [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":10}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
+  jq '.hooks.Stop += [{"hooks":[{"type":"command","command":".claude/hooks/verify-all.sh","timeout":30}]}]' .claude/settings.json > .claude/settings.json.tmp && mv .claude/settings.json.tmp .claude/settings.json
   ```
 
-If the jq command fails (disk full, write-locked, race condition), delete the just-written `.claude/hooks/verify-all.sh` to avoid an orphan and surface a Step 7 warning. No `.roughly/workflow-upgrades` record. (Note: this rollback only deletes a file we wrote in Step D — Step C's `abort` path returned before any writes, so we never delete a user file the user told us to preserve.)
+(The `timeout` value is in seconds. 30 is a generous default for fast type-checks; users with slower type-checks can hand-edit `.claude/settings.json` to bump it. The earlier dogfood-only value of 10 was too aggressive for arbitrary type-checks and could silently time out without surfacing drift.)
+
+If the jq command fails (disk full, write-locked, race condition), delete the just-written `.claude/hooks/verify-all.sh` to avoid an orphan AND remove `.claude/settings.json.tmp` (jq may have created/truncated it before failing — don't leave half-written files on disk). Surface a Step 7 warning. No `.roughly/workflow-upgrades` record. (Note: this rollback only deletes a file we wrote in Step D — Step C's `abort` path returned before any writes, so we never delete a user file the user told us to preserve.)
 
 On success: record `stop-hook-v1-added YYYY-MM-DD` in `.roughly/workflow-upgrades`.
 

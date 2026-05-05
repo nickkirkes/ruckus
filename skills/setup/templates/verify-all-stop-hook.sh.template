@@ -65,7 +65,7 @@ emit_drift_json() {
     # form feed, vertical tab, backspace, etc. Cosmetic residue from
     # stripped ANSI sequences (e.g., '[31m' fragments) may remain in the
     # message — the result is a well-formed `systemMessage` the model can
-    # always read; install jq or python3 for fully fidelity.
+    # always read; install jq or python3 for full fidelity.
     local cleaned
     cleaned=$(printf '%s' "$m" | LC_ALL=C tr -d '\000-\010\013-\014\016-\037')
     local escaped="${cleaned//\\/\\\\}"

@@ -54,30 +54,38 @@ Close the `stop-hook-v1` no-op gap. Today, accepting the build/fix Stage 8 offer
 # To enable additional fast checks (lint, format), uncomment the relevant
 # blocks below.
 
-set -e
+# NOTE: `set -e` is intentionally NOT used here. This Stop hook MUST exit
+# 0 (informational/non-blocking contract); `set -e` would let any
+# unguarded command failure (a missing path on `cd`, etc.) abort the
+# script with a non-zero status and break the contract. Each potentially-
+# failing command below is explicitly guarded.
 shopt -s nullglob
 
-# `|| true` prevents `set -e` from exiting non-zero when this hook runs
-# outside a git repo, which would violate the always-exit-0 contract.
+# `|| true` swallows non-zero exits inside the command substitution so
+# the script reaches the empty-root guard below when run outside a git
+# repo (violating exit 0 otherwise).
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 [ -z "$ROOT" ] && exit 0
-cd "$ROOT"
+cd "$ROOT" || exit 0
 
 issues=""
 
-# Type check (default-on)
+# Type check (default-on). Real newlines via $'\n' instead of literal `\n`
+# strings so we can use printf '%s' below — `printf %b` would re-interpret
+# backslash sequences in command output, mangling Windows paths and
+# similar content.
 if ! TYPE_CHECK_OUTPUT=$({{TYPE_CHECK_COMMAND}} 2>&1); then
-  issues="${issues}- type check failed:\n${TYPE_CHECK_OUTPUT}\n"
+  issues+="- type check failed:"$'\n'"${TYPE_CHECK_OUTPUT}"$'\n'
 fi
 
 # Lint check (opt-in — replace <your-lint-command> and uncomment)
 # if ! LINT_OUTPUT=$(<your-lint-command> 2>&1); then
-#   issues="${issues}- lint failed:\n${LINT_OUTPUT}\n"
+#   issues+="- lint failed:"$'\n'"${LINT_OUTPUT}"$'\n'
 # fi
 
 # Format check (opt-in — replace <your-format-check-command> and uncomment)
 # if ! FORMAT_OUTPUT=$(<your-format-check-command> 2>&1); then
-#   issues="${issues}- formatting drift:\n${FORMAT_OUTPUT}\n"
+#   issues+="- formatting drift:"$'\n'"${FORMAT_OUTPUT}"$'\n'
 # fi
 
 emit_drift_json() {
@@ -86,13 +94,32 @@ emit_drift_json() {
     jq -nc --arg m "$m" '{systemMessage: $m}'
   elif command -v python3 >/dev/null 2>&1; then
     python3 -c 'import json,sys; print(json.dumps({"systemMessage": sys.argv[1]}))' "$m"
+  else
+    # Neither encoder available — hand-build minimal JSON via bash parameter
+    # expansion (bash 3+ syntax). Without this fallback, drift would be
+    # invisible to the assistant model whenever jq AND python3 are both
+    # missing — defeating the hook's enforcement purpose.
+    #
+    # Pre-strip all U+0000–U+001F control characters except tab/newline/CR
+    # (which we escape explicitly below). This guarantees strict JSON
+    # validity even on input containing ANSI color codes (ESC = 0x1b),
+    # form feed, vertical tab, backspace, etc. Cosmetic residue from
+    # stripped ANSI sequences (e.g., '[31m' fragments) may remain in the
+    # message — the result is a well-formed `systemMessage` the model can
+    # always read; install jq or python3 for full fidelity.
+    local cleaned
+    cleaned=$(printf '%s' "$m" | LC_ALL=C tr -d '\000-\010\013-\014\016-\037')
+    local escaped="${cleaned//\\/\\\\}"
+    escaped="${escaped//\"/\\\"}"
+    escaped="${escaped//$'\n'/\\n}"
+    escaped="${escaped//$'\t'/\\t}"
+    escaped="${escaped//$'\r'/\\r}"
+    printf '{"systemMessage":"%s"}\n' "$escaped"
   fi
-  # If neither is available, drop the structured output rather than emit
-  # malformed JSON. The hook still exits 0 below.
 }
 
 if [ -n "$issues" ]; then
-  msg=$(printf 'verify-all drift detected:\n%b' "$issues")
+  msg="verify-all drift detected:"$'\n'"${issues}"
   emit_drift_json "$msg" || true
 fi
 exit 0

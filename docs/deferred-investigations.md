@@ -57,4 +57,4 @@ The build pipeline's Stage 6 (parallel `code-reviewer` + `static-analysis` + `si
 - E03.S2 (the surfacing story; fixing it now would balloon scope)
 - v0.1.5 (frozen per ROADMAP.md)
 
-**Candidate placement:** v0.1.6 trust-hardening cluster (per ROADMAP.md "v0.1.6 candidates" section), or a dedicated trust-hardening epic if findings repeat across v0.1.5 stories.
+**Candidate placement:** v0.1.6 (ROADMAP.md sequencing: v0.1.5 is FROZEN with overflow → v0.1.6, see ROADMAP.md `## v0.1.5` "Out of scope (→ v0.1.6 if surfaced)" subsection at line 76), or a dedicated trust-hardening epic if findings repeat across v0.1.5 stories.

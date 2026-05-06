@@ -165,7 +165,7 @@ Only when both checks pass, inspect `.hooks.UserPromptSubmit`:
 
 First check that `jq` is available. If unavailable, surface a Step 7 blocking-warning matching the Branch 3 pattern: `WARNING: jq not installed — could not install Stop hook. Install jq and re-run /roughly:setup.` Abort Branch 4: write nothing to disk and write no `.roughly/workflow-upgrades` record. Do NOT direct the user toward a manual install path — Branch 4 writes nothing on this branch.
 
-Validate that `.claude/settings.json` parses cleanly: `jq empty .claude/settings.json`. If parse fails, surface a Step 7 warning: `WARNING: existing .claude/settings.json is invalid JSON — Stop hook not registered. Fix the file and re-run /roughly:setup.` Abort with no record.
+If `.claude/settings.json` exists, validate it parses cleanly: `jq empty .claude/settings.json`. If parse fails (file exists but JSON is malformed), surface a Step 7 warning: `WARNING: existing .claude/settings.json is invalid JSON — Stop hook not registered. Fix the file and re-run /roughly:setup.` Abort with no record. If `.claude/settings.json` does NOT exist, do NOT abort — proceed to Step D, where item 3's defensive-creation path will produce a minimal valid file before jq runs. (The file-missing case is unexpected per the Branch 1/2/3 invariant, but defensive handling lives in Step D so this read-only step doesn't need to write.)
 
 **Step B — settings-conflict resolution (prompt may fire; no disk writes yet).**
 
@@ -174,7 +174,8 @@ Inspect `.hooks.Stop` and resolve to a settings-install plan:
 - `.hooks.Stop` is null, absent, or an empty array (`[]`): plan is **add-new** (jq command will be `'.hooks.Stop = [...]'`).
 - `.hooks.Stop` is a non-empty array: prompt the human:
   > "A Stop hook is already configured in .claude/settings.json. Options: (keep) leave existing untouched / (replace) overwrite with verify-all hook / (merge) add verify-all alongside existing (both fire on every turn) / (decline) don't add"
-  - **keep** or **decline:** plan is **abort-declined**. Record `stop-hook-v1-declined` in `.roughly/workflow-upgrades`. Do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete any pre-existing `.claude/hooks/verify-all.sh` (the user file, if any, is preserved untouched). Return from Branch 4.
+  - **keep:** plan is **abort-passive**. Do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete any pre-existing `.claude/hooks/verify-all.sh`, and **do NOT record** `stop-hook-v1-declined` (this was passive preservation of an existing Stop hook, not active rejection — recording `-declined` would suppress build/fix Stage 8's offer per its `not declined` gate, which would be too permanent for "I have my own hook right now"). Return from Branch 4. (Note: build/fix Stage 8's gate also self-suppresses when `.hooks.Stop` is non-empty, so re-prompts won't loop the user.)
+  - **decline:** plan is **abort-declined** (active rejection). Record `stop-hook-v1-declined` in `.roughly/workflow-upgrades` (matches Step 6's `never` semantics — suppresses future build/fix Stage 8 offers). Do NOT write the hook file, do NOT modify `.claude/settings.json`, do NOT delete any pre-existing `.claude/hooks/verify-all.sh`. Return from Branch 4.
   - **replace:** plan is **replace** (jq command `'.hooks.Stop = [...]'`).
   - **merge:** verify `.hooks.Stop` is an array (`jq -e '.hooks.Stop | type == "array"' .claude/settings.json`); if not (e.g., a hand-edited single object), surface a Step 7 warning: `WARNING: .claude/settings.json .hooks.Stop is not an array — cannot merge. Convert to array form manually and re-run.` Abort with no record. If the array check passes: plan is **merge** (jq command `'.hooks.Stop += [...]'`).
 - `.hooks.Stop` exists but is not an array: surface a Step 7 warning: `WARNING: .claude/settings.json .hooks.Stop is not an array (Claude Code hooks contract requires array form) — Stop hook not registered. Fix manually and re-run.` Abort with no record.
@@ -182,9 +183,9 @@ Inspect `.hooks.Stop` and resolve to a settings-install plan:
 **Step C — file-conflict prompt (only fires when plan will write the hook file).**
 
 Plans **add-new**, **replace**, and **merge** all need a hook file at `.claude/hooks/verify-all.sh`. Check whether the file already exists. If it does, prompt:
-> "A `.claude/hooks/verify-all.sh` already exists. Options: (overwrite) replace with the verify-all template — your existing file content will be lost / (abort) preserve the existing file and skip Stop-hook installation (records as declined)"
+> "A `.claude/hooks/verify-all.sh` already exists. Options: (overwrite) replace with the verify-all template — your existing file content will be lost / (abort) preserve the existing file and skip Stop-hook installation (no record — re-offered next setup or build/fix run)"
 - **overwrite:** proceed.
-- **abort:** record `stop-hook-v1-declined`; preserve user file untouched; return from Branch 4.
+- **abort:** preserve user file untouched. **Do NOT record** `stop-hook-v1-declined` (passive preservation, parallel to Step B's `keep` — recording would too-permanently suppress build/fix Stage 8 future offers). Return from Branch 4.
 
 **Step D — commit phase (transactional: all-or-nothing).**
 
